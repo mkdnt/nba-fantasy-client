@@ -7,6 +7,7 @@ import Dashboard from '../Dashboard/Dashboard'
 import About from '../About/About'
 import Login from '../Login/Login'
 import Register from '../Register/Register'
+import Post from '../Post/Post'
 
 export class App extends Component {
   render(){
@@ -25,6 +26,7 @@ export class App extends Component {
               <Route exact path='/about' component={About} />
               <Route exact path='/login' component={Login} />
               <Route exact path='/register' component={Register} />
+              <Route exact path='/post' component={Post} />
             </Switch>
           </main>
       </div>

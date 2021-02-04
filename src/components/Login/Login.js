@@ -5,7 +5,7 @@ export class Login extends Component {
     render() {
         return (
             <div>
-                <h2>About</h2>
+                <h2>Login</h2>
                 <p>Clipboard is a React-based app that allows users to post about their NBA fantasy basketball teams and read posts from fellow users.
             </p>
             <form>

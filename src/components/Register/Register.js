@@ -4,6 +4,7 @@ export class Register extends Component {
     render() {
         return (
             <div>
+                <h2>Register</h2>
                 <p>Probably should have a quick sentence about registration or something...</p>
         <form>
             <label htmlFor="">First Name</label>
