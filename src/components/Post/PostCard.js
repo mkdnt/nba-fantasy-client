@@ -1,14 +1,19 @@
-import React, { Component } from 'react'
-import PostContext from '../../contexts/PostContext'
+import React, { Component } from 'react';
+import PostContext from '../../contexts/PostContext';
+import { Link } from "react-router-dom";
 
 export class PostCard extends Component {
 
     static contextType = PostContext
     render() {
-    const { title, content, date_published } = this.props;
+    const { id, title, content, date_published } = this.props;
         return (
             <div>
-                <h2>{title}</h2>
+                <Link 
+                    to={`posts/${id}`}
+                    style={{ textDecoration: "none", color: "inherit" }}>
+                        <h2>{title}</h2>
+                    </Link>
                 <p>{date_published}</p>
                 <p>{content}</p>
             </div>

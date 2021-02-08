@@ -9,6 +9,7 @@ import About from '../About/About'
 import Login from '../Login/Login'
 import Register from '../Register/Register'
 import AddPost from '../Post/AddPost'
+import PostItem from '../Post/PostItem'
 import PostContext from '../../contexts/PostContext'
 
 export class App extends Component {
@@ -16,7 +17,7 @@ export class App extends Component {
     posts: [],
     addPost: this.handleAddPost,
     editPost: this.handleEditPost,
-    deleteRoute: this.handleDeleteRoute,
+    deleteRoute: this.handleDeletePost,
   };
 
   componentDidMount() {
@@ -44,7 +45,26 @@ export class App extends Component {
     })
   };
 
+  handleDeletePost = (post_id) => {
+    const newPosts = this.state.posts.filter((post) => post.id != post_id);
+    this.setState({
+      posts: newPosts,
+    })
+  };
 
+  handleEditPost = (editedPost) => {
+    this.setState({
+      posts: this.state.posts.map((post) => 
+        post.id != editedPost.id ? post : editedPost
+      ),
+    });
+  };
+
+  handleAddPost = (newPost) => {
+    this.setState({
+      posts: [...this.state.posts, newPost],
+    });
+  };
 
   render(){
     const value = {
@@ -71,6 +91,7 @@ export class App extends Component {
                 <Route exact path='/login' component={Login} />
                 <Route exact path='/register' component={Register} />
                 <Route exact path='/addpost' component={AddPost} />
+                <Route exact path='/posts/:post_id' component={PostItem} />
               </Switch>
             </main>
         </div>
