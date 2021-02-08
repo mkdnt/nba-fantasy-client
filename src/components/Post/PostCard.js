@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import PostContext from '../../contexts/PostContext'
 
 export class PostCard extends Component {
+
+    static contextType = PostContext
     render() {
     const { title, content, date_published } = this.props;
         return (

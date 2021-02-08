@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from "react-router-dom";
+import api from '../../config'
 import Home from '../Home/Home'
 import Header from '../Header/Header'
 import Nav from '../Nav/Nav'
@@ -43,7 +44,7 @@ export class App extends Component {
     })
   };
 
-  
+
 
   render(){
     const value = {
