@@ -67,11 +67,11 @@ export class PostsList extends Component {
 
         if (this.state.adding === false) {
             return (
-                <div>
-                <button className="buttons" onClick={this.handleClickAdd}>
-                    Edit
-                </button>
             <div>
+                <button className="buttons" onClick={this.handleClickAdd}>
+                    New Post
+                </button>
+            <section>
                 <ul
                 style={{
                 listStyleType: "none",
@@ -91,7 +91,7 @@ export class PostsList extends Component {
                     </li>
                 ))}
                 </ul>
-            </div>
+            </section>
             </div>
         )
         }

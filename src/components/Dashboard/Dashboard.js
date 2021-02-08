@@ -2,9 +2,6 @@ import React, { Component } from 'react'
 import PostsList from '../Post/PostsList'
 
 export class Dashboard extends Component {
-    handleAddNewPost = () => {
-        this.props.history.push('/post')
-    }
 
     handleAddNewPlayer = () => {
         this.props.history.push('/player')
@@ -20,15 +17,6 @@ export class Dashboard extends Component {
         </div>
         <div>
             <ul>
-                <li>Player</li>
-                <li>Player</li>
-                <li>Player</li>
-                <li>Player</li>
-                <li>Player</li>
-                <li>Player</li>
-                <li>Player</li>
-                <li>Player</li>
-                <li>Player</li>
                 <li>Player</li>
             </ul>
             <button onClick={this.handleAddNewPlayer}>Add Player</button>
