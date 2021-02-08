@@ -1,6 +1,14 @@
 import React, { Component } from 'react'
 
 export class Dashboard extends Component {
+    handleAddNewPost = () => {
+        this.props.history.push('/post')
+    }
+
+    handleAddNewPlayer = () => {
+        this.props.history.push('/player')
+    }
+
     render() {
         return (
             <div>
@@ -22,8 +30,11 @@ export class Dashboard extends Component {
                 <li>Player</li>
                 <li>Player</li>
             </ul>
+            <button onClick={this.handleAddNewPlayer}>Add Player</button>
         </div>
         <div>
+            <h2>Posts</h2>
+            <button onCLick={this.handleAddNewPost}>Add Post</button>
             <h3>Latest Post</h3>
             <h4>First Post Title</h4>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros,
