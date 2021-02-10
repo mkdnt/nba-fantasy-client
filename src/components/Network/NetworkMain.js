@@ -3,6 +3,7 @@ import PostCard from '../Post/PostCard';
 
 export class NetworkMain extends Component {
     render() {
+        const posts = this.context.posts
         return (
             <section>
                 <ul
