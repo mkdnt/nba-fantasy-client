@@ -8,25 +8,25 @@ export class Nav extends Component {
                 <ul>
                     <li>
                         <Link 
-                        to='/about'
-                        style={{ textDecoration: "none", color: "inherit" }}>
-                        About
-                        </Link>
-                    </li>
-
-                    <li>
-                        <Link 
-                        to='register'
-                        style={{ textDecoration: "none", color: "inherit" }}>
-                        Register
-                        </Link>
-                    </li>
-
-                    <li>
-                        <Link 
                         to='/login'
                         style={{ textDecoration: "none", color: "inherit" }}>
                         Login
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link 
+                        to='/network'
+                        style={{ textDecoration: "none", color: "inherit" }}>
+                        Network
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link 
+                        to='/about'
+                        style={{ textDecoration: "none", color: "inherit" }}>
+                        About
                         </Link>
                     </li>
                 </ul>

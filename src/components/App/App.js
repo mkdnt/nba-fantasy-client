@@ -8,13 +8,16 @@ import Dashboard from '../Dashboard/Dashboard'
 import About from '../About/About'
 import Login from '../Login/Login'
 import Register from '../Register/Register'
-import AddPost from '../Post/AddPost'
 import PostItem from '../Post/PostItem'
+import UserPage from '../Users/UserPage'
 import PostContext from '../../contexts/PostContext'
+import UsersList from '../Users/UsersList';
+import NetworkMain from '../Network/NetworkMain';
 
 export class App extends Component {
   state = {
     posts: [],
+    users: [],
     addPost: this.handleAddPost,
     editPost: this.handleEditPost,
     deleteRoute: this.handleDeletePost,
@@ -69,6 +72,7 @@ export class App extends Component {
   render(){
     const value = {
       posts: this.state.posts,
+      users: this.state.users,
       addPost: this.handleAddPost,
       deletePost: this.handleDeletePost,
       editPost: this.handleEditPost,
@@ -90,8 +94,10 @@ export class App extends Component {
                 <Route exact path='/about' component={About} />
                 <Route exact path='/login' component={Login} />
                 <Route exact path='/register' component={Register} />
-                <Route exact path='/addpost' component={AddPost} />
                 <Route exact path='/posts/:post_id' component={PostItem} />
+                <Route exact path='/users/:user_id' component={UserPage} />
+                <Route exact path='/users' component={UsersList} />
+                <Route exact path='/network' component={NetworkMain} />
               </Switch>
             </main>
         </div>
