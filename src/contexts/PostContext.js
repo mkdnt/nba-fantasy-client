@@ -6,4 +6,5 @@ export default React.createContext({
     addPost: () => {},
     editPost: () => {},
     deletePost: () => {},
+    addPlayer: () => {},
 });

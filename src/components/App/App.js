@@ -21,6 +21,7 @@ export class App extends Component {
     addPost: this.handleAddPost,
     editPost: this.handleEditPost,
     deleteRoute: this.handleDeletePost,
+    addPlayer: this.handleAddPlayer,
   };
 
   componentDidMount() {
@@ -69,6 +70,10 @@ export class App extends Component {
     });
   };
 
+  handleAddPlayer = (newPlayer) => {
+    console.log('handleAppPlayer on app.js', newPlayer)
+  }
+
   render(){
     const value = {
       posts: this.state.posts,
@@ -76,6 +81,7 @@ export class App extends Component {
       addPost: this.handleAddPost,
       deletePost: this.handleDeletePost,
       editPost: this.handleEditPost,
+      addPlayer: this.handleAddPlayer,
     };
 
     return (
