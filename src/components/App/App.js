@@ -18,6 +18,7 @@ export class App extends Component {
   state = {
     posts: [],
     users: [],
+    players: [],
     addPost: this.handleAddPost,
     editPost: this.handleEditPost,
     deleteRoute: this.handleDeletePost,
@@ -25,29 +26,25 @@ export class App extends Component {
   };
 
   componentDidMount() {
-    fetch(`${api.API_ENDPOINT}/posts`, {
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json',
-        Authorization: `Bearer ${api.API_KEY}`,
-      },
-    })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error('Something went wrong, please try again.');
-      }
-      return res;
-    })
-    .then((res) => res.json())
-    .then((data) => {
-      this.setState({
-        posts: data,
-      })
-    })
-    .catch((error) => {
-      console.error({error})
-    })
-  };
+        Promise.all([
+        fetch(`${api.API_ENDPOINT}/players`),
+        fetch(`${api.API_ENDPOINT}/posts`),
+        ])
+        .then(([playersRes, postsRes]) => {
+            if (!playersRes.ok) 
+                return playersRes.json().then((e) => Promise.reject(e));
+            if (!postsRes.ok)
+                return postsRes.json().then((e) => Promise.reject(e));
+
+            return Promise.all([playersRes.json(), postsRes.json()]);
+        })
+        .then(([players, posts]) => {
+            this.setState({ players, posts });
+        })
+        .catch((error) => {
+            console.error({ error });
+        });
+    }
 
   handleDeletePost = (post_id) => {
     const newPosts = this.state.posts.filter((post) => post.id != post_id);
@@ -71,13 +68,17 @@ export class App extends Component {
   };
 
   handleAddPlayer = (newPlayer) => {
-    console.log('handleAppPlayer on app.js', newPlayer)
+    this.setState({
+      players: [...this.state.players, newPlayer]
+    });
+    console.log('handleAddPlayer on app.js after adding', this.state.players)
   }
 
   render(){
     const value = {
       posts: this.state.posts,
       users: this.state.users,
+      players: this.state.players,
       addPost: this.handleAddPost,
       deletePost: this.handleDeletePost,
       editPost: this.handleEditPost,

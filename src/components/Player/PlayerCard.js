@@ -36,6 +36,7 @@ export class PlayerCard extends Component {
             })
             .then((player) => {
                 this.context.addPlayer(player);
+                console.log('in handleAdd fetch on PlayerCard', user_id)
                 this.props.history.push(`/users/${user_id}`)
             })
             .catch((error) => {

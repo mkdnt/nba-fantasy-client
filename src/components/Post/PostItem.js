@@ -36,6 +36,8 @@ export class PostItem extends Component {
     const { posts } = this.context;
     const { post_id } = this.props.match.params;
     const post = posts.find((post) => post.id === Number(post_id));
+    console.log('on PostItem looking for post_id', post_id)
+    console.log('on PostItem looking for post', post)
 
     if (!post) {
       return (
