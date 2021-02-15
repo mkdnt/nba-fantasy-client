@@ -30,6 +30,13 @@ export class Nav extends Component {
                         </Link>
                     </li>
                 </ul>
+                <hr
+                    style={{
+                    width: "100%",
+                    border: "1px solid red",
+                    backgroundColor: "red",
+                    }}
+                />
             </div>
         )
     }

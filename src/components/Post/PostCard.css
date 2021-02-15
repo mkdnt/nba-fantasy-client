@@ -1,0 +1,20 @@
+/* .indiv-post {
+    width: auto-fit;
+}  */
+
+.indiv-post {
+    border: 2px solid black;
+    padding: 0.3em;
+    margin: 0.3em;   
+}
+
+.indiv-post:hover{
+    background-color: white;
+}
+
+/* 
+@media all and (min-width: 600px) {
+  .indiv-post {
+    width: auto-fill;
+  }
+} */

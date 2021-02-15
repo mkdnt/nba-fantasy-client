@@ -7,7 +7,14 @@ export class PlayerCard extends Component {
         match: {
             params: {},
         },
+        history: {
+        push: () => {},
+        }
     };
+
+    state = {
+        searchResults: true,
+    }
 
     static contextType = PostContext
 
@@ -18,10 +25,10 @@ export class PlayerCard extends Component {
         const handleAdd = (event) => {
             event.preventDefault();
             const newPlayer = {
+                //nba_id is coming from the third party NBA API
                 nba_id: player.id,
                 user_id: user_id,
             }
-            console.log('on PlayerCard', newPlayer)
 
             fetch(`${api.API_ENDPOINT}/players`, {
                 method: 'POST',
@@ -36,7 +43,9 @@ export class PlayerCard extends Component {
             })
             .then((player) => {
                 this.context.addPlayer(player);
-                console.log('in handleAdd fetch on PlayerCard', user_id)
+                this.setState({
+                    searchResults: false,
+                })
                 this.props.history.push(`/users/${user_id}`)
             })
             .catch((error) => {

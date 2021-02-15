@@ -10,12 +10,12 @@ export class Home extends Component {
             </p>
             <p>If you've made an account, you can log in below. Otherwise, please register for an account or log in with the demo accout, username: demo, password: DemoPass1234!</p>
             <form>
-                <label htmlFor="">Username</label>
-                <input type="text" />
-                <label htmlFor="">Password</label>
-                <input type="text" />
+                
+                <input type="text" placeholder='Username' />
+                <input type="text" placeholder='Password' />
                 <button>
-                    <Link to={'/dashboard'}>
+                    <Link to={'/users/1'}
+                    style={{ textDecoration: "none", color: "inherit" }}>
                     Log In
                     </Link>
                 </button>

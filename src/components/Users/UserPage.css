@@ -1,0 +1,22 @@
+.users-players ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.users-players ul li {
+    border: 2px solid black;
+    padding: 0.3em;
+    margin: 0.3em;   
+}
+
+.users-players ul li:hover{
+    background-color: white;
+}
+
+.add-player-button {
+    background-color: #ADE8F4;
+}
+
+.add-player-button:hover {
+    background-color: #90E0EF;
+}

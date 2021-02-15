@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PostContext from '../../contexts/PostContext';
-import { Link } from "react-router-dom";
+import './PostCard.css';
 
 export class PostCard extends Component {
     static defaultProps = {
@@ -9,21 +9,41 @@ export class PostCard extends Component {
         }
     };
 
+    state = {
+        expanded: false,
+    }
+
     static contextType = PostContext
     render() {
-    const { id, title, content, date_published } = this.props;
+    const { id, title, content, date_published, username } = this.props;
 
-        return (
-            <div>
-                <Link 
-                    to={`/posts/${id}`}
-                    style={{ textDecoration: "none", color: "inherit" }}>
-                        <h2>{title}</h2>
-                    </Link>
+    const handleClickExpand = () => {
+        this.setState({
+            expanded: !this.state.expanded
+        })
+    }
+
+        if (this.state.expanded === true){
+            return (
+            <div className='indiv-post' onClick={handleClickExpand}>
+                <h2>{title}</h2>
+                <p>by</p>
                 <p>{date_published}</p>
                 <p>{content}</p>
             </div>
         )
+        }
+
+        else {
+            return (
+            <div className='indiv-post' onClick={handleClickExpand}>
+                <h2>{title}</h2>
+                <p>by</p>
+                <p>{date_published}</p>
+            </div>
+        )
+        }
+        
     }
 }
 

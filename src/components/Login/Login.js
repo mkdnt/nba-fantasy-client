@@ -9,12 +9,11 @@ export class Login extends Component {
                 <p>Clipboard is a React-based app that allows users to post about their NBA fantasy basketball teams and read posts from fellow users.
             </p>
             <form>
-                <label htmlFor="">Username</label>
-                <input type="text" />
-                <label htmlFor="">Password</label>
-                <input type="text" />
+                <input className='username-login' type="text" placeholder='username' />
+                <input type="text" placeholder='password' />
                 <button>
-                    <Link to={'/dashboard'}>
+                    <Link to={'/dashboard'}
+                    style={{ textDecoration: "none", color: "inherit" }}>
                     Log In
                     </Link>
                 </button>

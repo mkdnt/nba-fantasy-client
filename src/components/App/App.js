@@ -13,12 +13,15 @@ import UserPage from '../Users/UserPage'
 import PostContext from '../../contexts/PostContext'
 import UsersList from '../Users/UsersList';
 import NetworkMain from '../Network/NetworkMain';
+import AddPlayer from '../Player/AddPlayer';
 
 export class App extends Component {
   state = {
     posts: [],
     users: [],
     players: [],
+    allPlayers: [],
+    searchResults: false,
     addPost: this.handleAddPost,
     editPost: this.handleEditPost,
     deleteRoute: this.handleDeletePost,
@@ -27,19 +30,22 @@ export class App extends Component {
 
   componentDidMount() {
         Promise.all([
+        fetch(`${api.NBA_API_ENDPOINT}`),
         fetch(`${api.API_ENDPOINT}/players`),
         fetch(`${api.API_ENDPOINT}/posts`),
         ])
-        .then(([playersRes, postsRes]) => {
+        .then(([allPlayersRes, playersRes, postsRes]) => {
+            if (!allPlayersRes.ok) 
+                return allPlayersRes.json().then((e) => Promise.reject(e));
             if (!playersRes.ok) 
                 return playersRes.json().then((e) => Promise.reject(e));
             if (!postsRes.ok)
                 return postsRes.json().then((e) => Promise.reject(e));
 
-            return Promise.all([playersRes.json(), postsRes.json()]);
+            return Promise.all([allPlayersRes.json(), playersRes.json(), postsRes.json()]);
         })
-        .then(([players, posts]) => {
-            this.setState({ players, posts });
+        .then(([allPlayers, players, posts]) => {
+            this.setState({ allPlayers, players, posts });
         })
         .catch((error) => {
             console.error({ error });
@@ -69,9 +75,8 @@ export class App extends Component {
 
   handleAddPlayer = (newPlayer) => {
     this.setState({
-      players: [...this.state.players, newPlayer]
+      players: [...this.state.players, newPlayer],
     });
-    console.log('handleAddPlayer on app.js after adding', this.state.players)
   }
 
   render(){
@@ -79,6 +84,8 @@ export class App extends Component {
       posts: this.state.posts,
       users: this.state.users,
       players: this.state.players,
+      allPlayers: this.state.allPlayers,
+      searchResults: this.state.searchResults,
       addPost: this.handleAddPost,
       deletePost: this.handleDeletePost,
       editPost: this.handleEditPost,
@@ -105,6 +112,7 @@ export class App extends Component {
                 <Route exact path='/users/:user_id' component={UserPage} />
                 <Route exact path='/users' component={UsersList} />
                 <Route exact path='/network' component={NetworkMain} />
+                <Route exact path='/users/:user_id/addplayer' component={AddPlayer} />
               </Switch>
             </main>
         </div>

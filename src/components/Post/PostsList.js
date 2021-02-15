@@ -16,9 +16,9 @@ export class PostsList extends Component {
 
     render() {
         const posts = this.props.posts
-            return (
+
+        return (
             <div>
-            <section>
                 <ul
                 style={{
                 listStyleType: "none",
@@ -38,7 +38,6 @@ export class PostsList extends Component {
                     </li>
                 ))}
                 </ul>
-            </section>
             </div>
         )
 
