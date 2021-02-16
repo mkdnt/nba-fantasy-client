@@ -32,8 +32,8 @@ export class UserPage extends Component {
         //test for an empty user
         Promise.all([
         fetch(`${api.API_ENDPOINT}/users/${user_id}`),
-        fetch(`${api.API_ENDPOINT}/users/${user_id}/posts`),
-        fetch(`${api.API_ENDPOINT}/users/${user_id}/players`),
+        fetch(`${api.API_ENDPOINT}/posts/${user_id}`),
+        fetch(`${api.API_ENDPOINT}/players/${user_id}`),
         ])
         .then(([userRes, userPostsRes, userPlayersRes ]) => {
             if (!userRes.ok) 
