@@ -6,7 +6,8 @@
 .users-players ul li {
     border: 2px solid black;
     padding: 0.3em;
-    margin: 0.3em;   
+    margin: 0.3em;
+       
 }
 
 .users-players ul li:hover{
@@ -14,7 +15,10 @@
 }
 
 .add-player-button {
-    background-color: #ADE8F4;
+    background-color: #90E0EF;
+    justify-content: center;
+    text-align: center;
+    padding: 15px;
 }
 
 .add-player-button:hover {

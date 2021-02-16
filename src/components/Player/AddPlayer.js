@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import api from '../../config';
 import PostContext from '../../contexts/PostContext';
-import PlayerCard from '../Player/PlayerCard';
+import PlayerResults from './PlayerResults';
 
 export class AddPlayer extends Component {
     state = {
@@ -48,6 +48,7 @@ export class AddPlayer extends Component {
             })
         };
 
+
     if (this.state.searchResults === true) {
         return (
             <div>
@@ -72,9 +73,9 @@ export class AddPlayer extends Component {
                 >
                 {this.state.playersToAdd.data.map((player) => (
                     <li key={player.id} style={{ textDecoration: "none" }}>
-                        <PlayerCard
-                            player={player}
-                            user_id={user_id}
+                        <PlayerResults 
+                                    player={player}
+                                    user_id={user_id}
                         />
                     </li>
                 ))}

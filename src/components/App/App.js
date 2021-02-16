@@ -26,26 +26,27 @@ export class App extends Component {
     editPost: this.handleEditPost,
     deleteRoute: this.handleDeletePost,
     addPlayer: this.handleAddPlayer,
+    deletePlayer: this.handleDeletePlayer,
   };
 
   componentDidMount() {
         Promise.all([
-        fetch(`${api.NBA_API_ENDPOINT}`),
+        fetch(`${api.API_ENDPOINT}/users`),
         fetch(`${api.API_ENDPOINT}/players`),
         fetch(`${api.API_ENDPOINT}/posts`),
         ])
-        .then(([allPlayersRes, playersRes, postsRes]) => {
-            if (!allPlayersRes.ok) 
-                return allPlayersRes.json().then((e) => Promise.reject(e));
+        .then(([usersRes, playersRes, postsRes]) => {
+          if (!usersRes.ok) 
+                return usersRes.json().then((e) => Promise.reject(e));
             if (!playersRes.ok) 
                 return playersRes.json().then((e) => Promise.reject(e));
             if (!postsRes.ok)
                 return postsRes.json().then((e) => Promise.reject(e));
 
-            return Promise.all([allPlayersRes.json(), playersRes.json(), postsRes.json()]);
+            return Promise.all([usersRes.json(), playersRes.json(), postsRes.json()]);
         })
-        .then(([allPlayers, players, posts]) => {
-            this.setState({ allPlayers, players, posts });
+        .then(([users, players, posts]) => {
+            this.setState({ users, players, posts });
         })
         .catch((error) => {
             console.error({ error });
@@ -56,6 +57,13 @@ export class App extends Component {
     const newPosts = this.state.posts.filter((post) => post.id != post_id);
     this.setState({
       posts: newPosts,
+    })
+  };
+
+  handleDeletePlayer = (player_id) => {
+    const newPlayers = this.state.players.filter((player) => player.user_id != player_id);
+    this.setState({
+      players: newPlayers,
     })
   };
 
@@ -84,12 +92,12 @@ export class App extends Component {
       posts: this.state.posts,
       users: this.state.users,
       players: this.state.players,
-      allPlayers: this.state.allPlayers,
       searchResults: this.state.searchResults,
       addPost: this.handleAddPost,
       deletePost: this.handleDeletePost,
       editPost: this.handleEditPost,
       addPlayer: this.handleAddPlayer,
+      deletePlayer: this.handleDeletePlayer,
     };
 
     return (

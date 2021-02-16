@@ -9,10 +9,10 @@ import './UserPage.css';
 export class UserPage extends Component {
     state = {
         user: {},
-        posts: [],
+        userPosts: [],
         playersToAdd: [],
         searchResults: this.context.searchResults,
-        usersPlayers: [],
+        userPlayers: [],
     };
 
     static defaultProps = {
@@ -29,49 +29,28 @@ export class UserPage extends Component {
     //try and catch
     componentDidMount() {
         const { user_id } = this.props.match.params;
-        const filteredPlayers = this.context.players.filter(player => player.user_id === Number(user_id))
-        // filter of nba id in one statement instead of two
-        
-        const idArray = filteredPlayers.map(item => item.nba_id)
-
         //test for an empty user
         Promise.all([
         fetch(`${api.API_ENDPOINT}/users/${user_id}`),
         fetch(`${api.API_ENDPOINT}/users/${user_id}/posts`),
+        fetch(`${api.API_ENDPOINT}/users/${user_id}/players`),
         ])
-        .then(([userRes, postsRes]) => {
+        .then(([userRes, userPostsRes, userPlayersRes ]) => {
             if (!userRes.ok) 
                 return userRes.json().then((e) => Promise.reject(e));
-            if (!postsRes.ok)
-                return postsRes.json().then((e) => Promise.reject(e));
+            if (!userPostsRes.ok)
+                return userPostsRes.json().then((e) => Promise.reject(e));
+            if (!userPlayersRes.ok)
+                return userPlayersRes.json().then((e) => Promise.reject(e));
 
-            return Promise.all([userRes.json(), postsRes.json()]);
+            return Promise.all([userRes.json(), userPostsRes.json(), userPlayersRes.json()]);
         })
-        .then(([user, posts]) => {
-            this.setState({ user, posts });          
+        .then(([user, userPosts, userPlayers]) => {
+            this.setState({ user, userPosts, userPlayers });          
         })
         .catch((error) => {
             console.error({ error });
         });
-
-        Promise.all(idArray.map(id => 
-                fetch(`${api.NBA_API_ENDPOINT}/${id}`)
-                .then((res) => {
-                    if (!res.ok) {
-                    throw new Error("Something went wrong, please try again.");
-                    }
-                    return res;
-                })
-                .then((res) => res.json())
-                .then((data) => {
-                    this.setState({
-                    usersPlayers: [...this.state.usersPlayers, data],
-                    });
-                })
-                .catch((error) => {
-                    console.error({ error });
-                })
-                ))
         
     }
 
@@ -80,7 +59,9 @@ export class UserPage extends Component {
 
     render() {
         const user = this.state.user
-        const posts = this.state.posts
+        const posts = this.state.userPosts
+        const players = this.state.userPlayers
+        console.log('userpage', players)
         
         const handleGoToAddPlayer = () => {
         this.props.history.push(`/users/${user.id}/addplayer`)
@@ -102,15 +83,17 @@ export class UserPage extends Component {
                         paddingLeft: "0",
                         }}
                         >
-                        {this.state.usersPlayers.map((player) => (
+                        {players.map((player) => (
                             <li key={player.id} style={{ textDecoration: "none" }}>
-                                {player.first_name} {player.last_name}
+                                {console.log('userpage', players)}
+                                <PlayerCard 
+                                    player={player}
+                                />
                             </li>
                             
                         ))}
                             <li className='add-player-button' onClick={handleGoToAddPlayer}>
                                 Add Player
-                                
                             </li>
                         </ul>
                     </div>

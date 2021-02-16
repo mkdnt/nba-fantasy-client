@@ -12,61 +12,60 @@ export class PlayerCard extends Component {
         }
     };
 
-    state = {
-        searchResults: true,
-    }
-
     static contextType = PostContext
+
+    state = {
+        expanded: false,
+    }
 
     render() {
         const player = this.props.player
         const user_id = this.props.user_id
 
-        const handleAdd = (event) => {
-            event.preventDefault();
-            const newPlayer = {
-                //nba_id is coming from the third party NBA API
-                nba_id: player.id,
-                user_id: user_id,
-            }
+        const handleClickDelete = (event) => {
+        event.preventDefault();
 
-            fetch(`${api.API_ENDPOINT}/players`, {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json',
-                },
-                body: JSON.stringify(newPlayer)
-            })
-            .then((res) => {
-                if (!res.ok) return res.json().then((e) => Promise.reject(e));
-                return res.json();
-            })
-            .then((player) => {
-                this.context.addPlayer(player);
-                this.setState({
-                    searchResults: false,
-                })
-                this.props.history.push(`/users/${user_id}`)
-            })
-            .catch((error) => {
-                console.error({error})
+        fetch(`${api.API_ENDPOINT}/players/${player.id}`, {
+            method: 'DELETE',
+            headers: {
+                'content-type': 'application/json',
+                Authorization: `Bearer ${api.API_KEY}`,
+            },
+        })
+        .then(() => {
+            this.props.history.push(`/dashboard`);
+            this.context.deletePlayer(player.id)
+        })
+        .catch((error) => {
+            console.error({error})
+        })
+    };
+
+        
+        const handleClickExpand = () => {
+        this.setState({
+            expanded: !this.state.expanded
             })
         }
-        return (
-            <div className='player-card' value={player.id} >
+
+        if (this.state.expanded === true) {
+            return (
+            <div className='player-card' value={player.id} onClick={handleClickExpand} >
                 <p id='player-name'>{player.first_name} {player.last_name}</p>
-                <p id='player-team'>{player.team.full_name}</p>
+                <p id='player-team'>{player.team}</p>
                 <p id='player-position'>Position: {player.position}</p>
-                <button onClick={handleAdd}>Add</button>
-                <hr
-                style={{
-                  width: "100%",
-                  border: "1px solid black",
-                  backgroundColor: "black",
-                }}
-              />
+                <button onClick={handleClickDelete}>Delete</button>
             </div>
         )
+        }
+
+        else {
+            return (
+            <div className='player-card' value={player.id} onClick={handleClickExpand} >
+                <p id='player-name'>{player.first_name} {player.last_name}</p>
+            </div>
+        )
+        }
     }
 }
 
