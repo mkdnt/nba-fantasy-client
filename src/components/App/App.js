@@ -52,6 +52,7 @@ export class App extends Component {
             console.error({ error });
         });
     }
+    //throw error for each fetch which says what the table issue is, show it on the screen to user
 
   handleDeletePost = (post_id) => {
     const newPosts = this.state.posts.filter((post) => post.id != post_id);

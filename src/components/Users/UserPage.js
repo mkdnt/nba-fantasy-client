@@ -11,7 +11,6 @@ export class UserPage extends Component {
         user: {},
         userPosts: [],
         playersToAdd: [],
-        searchResults: this.context.searchResults,
         userPlayers: [],
     };
 
@@ -53,9 +52,6 @@ export class UserPage extends Component {
         });
         
     }
-
-    
-
 
     render() {
         const user = this.state.user

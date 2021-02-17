@@ -33,8 +33,9 @@ export class PlayerCard extends Component {
             },
         })
         .then(() => {
-            this.props.history.push(`/dashboard`);
-            this.context.deletePlayer(player.id)
+            this.context.deletePlayer(player.id);
+            this.props.history.push(`/users/${user_id}`);
+
         })
         .catch((error) => {
             console.error({error})
