@@ -5,7 +5,9 @@ export class Register extends Component {
         return (
             <div>
                 <h2>Register</h2>
-                <p>Probably should have a quick sentence about registration or something...</p>
+            <p>This is a React-based app that allows users to post about their NBA fantasy basketball teams and read posts from fellow users.
+            </p>
+            <p>If you've made an account, you can log in below. Otherwise, please register for an account or log in with the demo account, username: demo, password: DemoPass1234!</p>
         <form>
             <label htmlFor="">First Name</label>
             <input type="text"/>

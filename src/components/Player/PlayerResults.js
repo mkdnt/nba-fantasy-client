@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PostContext from '../../contexts/PostContext'
+import UserContext from '../../contexts/UserContext'
 import api from '../../config';
 
 export class PlayerResults extends Component {
@@ -12,7 +12,7 @@ export class PlayerResults extends Component {
         }
     };
 
-    static contextType = PostContext
+    static contextType = UserContext
 
     render() {
         const player = this.props.player

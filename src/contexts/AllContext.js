@@ -1,6 +1,7 @@
 import React from 'react';
 
 export default React.createContext({
+    user: {},
     posts: [],
     users: [],
     players: [],
@@ -11,3 +12,6 @@ export default React.createContext({
     addPlayer: () => {},
     deletePlayer: () => {},
 });
+
+
+

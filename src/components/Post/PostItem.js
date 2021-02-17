@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PostContext from '../../contexts/PostContext';
+import UserContext from '../../contexts/UserContext';
 import PostCard from './PostCard';
 import api from '../../config';
 
@@ -16,7 +16,7 @@ export class PostItem extends Component {
         }
     };
 
-    static contextType = PostContext;
+    static contextType = UserContext;
 
     handleClickEdit = () => {
         this.setState({

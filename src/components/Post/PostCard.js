@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PostContext from '../../contexts/PostContext';
+import UserContext from '../../contexts/UserContext';
 import './PostCard.css';
 
 export class PostCard extends Component {
@@ -13,7 +13,7 @@ export class PostCard extends Component {
         expanded: false,
     }
 
-    static contextType = PostContext
+    static contextType = UserContext
     render() {
     const { id, title, content, date_published, username } = this.props;
 

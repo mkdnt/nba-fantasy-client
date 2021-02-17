@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PostCard from './PostCard'
-import PostContext from '../../contexts/PostContext';
+import UserContext from '../../contexts/UserContext';
 import api from '../../config';
 
 
@@ -18,7 +18,7 @@ export class PostsList extends Component {
         },
     };
 
-    static contextType = PostContext
+    static contextType = UserContext
 
     handleClickAdd = () => {
         this.setState({

@@ -46,7 +46,7 @@ export class UsersList extends Component {
                 >
                 {users.map((user) => (
                     <li key={user.id} style={{ textDecoration: "none" }}>
-                        {user.teamname} | {user.username}
+                        {user.team_name} | {user.username}
                     </li>
                 ))}
                 </ul>

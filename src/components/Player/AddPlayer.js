@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import api from '../../config';
-import PostContext from '../../contexts/PostContext';
+import UserContext from '../../contexts/UserContext';
 import PlayerResults from './PlayerResults';
 
 export class AddPlayer extends Component {
@@ -15,7 +15,7 @@ export class AddPlayer extends Component {
         }
     };
 
-    static contextType = PostContext;
+    static contextType = UserContext;
 
     render() {
         const { user_id } = this.props.match.params

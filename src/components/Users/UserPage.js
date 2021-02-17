@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import PostContext from '../../contexts/PostContext';
+import UserContext from '../../contexts/UserContext';
 import api from '../../config';
 import PostsList from '../Post/PostsList'
 import PlayerCard from '../Player/PlayerCard'
@@ -20,7 +20,7 @@ export class UserPage extends Component {
         }
     };
 
-    static contextType = PostContext;
+    static contextType = UserContext;
 
     //what are you mounting, etc.
     //call functions for fetching inside of CDM
@@ -67,7 +67,7 @@ export class UserPage extends Component {
     return (
             <div>
                 <div>
-                    <h2>{user.teamname}</h2>
+                    <h2>{user.team_name}</h2>
                     <p>{user.username}</p>
                 </div>
                     <div className='users-players'>
