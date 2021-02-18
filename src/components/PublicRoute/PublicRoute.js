@@ -11,7 +11,7 @@ export default function PublicRoute({ component, ...props }) {
         <UserContext.Consumer>
           {userContext =>
             !!userContext.user.id
-              ? <Redirect to={'/'} />
+              ? <Redirect to={'/myteam'} />
               : <Component {...componentProps} />
           }
         </UserContext.Consumer>

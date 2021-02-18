@@ -3,11 +3,9 @@ import UserContext from '../../contexts/UserContext';
 import api from '../../config';
 import PostsList from '../Post/PostsList'
 import PlayerCard from '../Player/PlayerCard'
-import './UserPage.css';
 
-export class UserPage extends Component {
+export class MyTeam extends Component {
     state = {
-        user: {},
         userPosts: [],
         playersToAdd: [],
         userPlayers: [],
@@ -26,25 +24,22 @@ export class UserPage extends Component {
     // fetchUsers(), fetchPosts()
     //try and catch
     componentDidMount() {
-        const { user_id } = this.props.match.params;
+        const user_id = this.context.user.id
         //test for an empty user
         Promise.all([
-        fetch(`${api.API_ENDPOINT}/users/${user_id}`),
         fetch(`${api.API_ENDPOINT}/posts/${user_id}`),
         fetch(`${api.API_ENDPOINT}/players/${user_id}`),
         ])
-        .then(([userRes, userPostsRes, userPlayersRes ]) => {
-            if (!userRes.ok) 
-                return userRes.json().then((e) => Promise.reject(e));
+        .then(([userPostsRes, userPlayersRes ]) => {
             if (!userPostsRes.ok)
                 return userPostsRes.json().then((e) => Promise.reject(e));
             if (!userPlayersRes.ok)
                 return userPlayersRes.json().then((e) => Promise.reject(e));
 
-            return Promise.all([userRes.json(), userPostsRes.json(), userPlayersRes.json()]);
+            return Promise.all([userPostsRes.json(), userPlayersRes.json()]);
         })
-        .then(([user, userPosts, userPlayers]) => {
-            this.setState({ user, userPosts, userPlayers });          
+        .then(([userPosts, userPlayers]) => {
+            this.setState({ userPosts, userPlayers });          
         })
         .catch((error) => {
             console.error({ error });
@@ -53,9 +48,13 @@ export class UserPage extends Component {
     }
 
     render() {
-        const user = this.state.user
+        const user = this.context.user
         const posts = this.state.userPosts
         const players = this.state.userPlayers
+        
+        const handleGoToAddPlayer = () => {
+        this.props.history.push(`/addplayer`)
+    }
         
 
     return (
@@ -75,13 +74,17 @@ export class UserPage extends Component {
                         >
                         {players.map((player) => (
                             <li key={player.id} style={{ textDecoration: "none" }}>
-                                {console.log('userpage', players)}
                                 <PlayerCard 
                                     player={player}
                                 />
                             </li>
                             
                         ))}
+                            <li className='add-player-button' 
+                            style={{ textDecoration: "none", paddingTop: '1.3em' }} 
+                            onClick={handleGoToAddPlayer}>
+                                Add Player
+                            </li>
                         </ul>
                     </div>
             
@@ -97,4 +100,4 @@ export class UserPage extends Component {
     }
 }
 
-export default UserPage
+export default MyTeam

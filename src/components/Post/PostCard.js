@@ -13,7 +13,8 @@ export class PostCard extends Component {
         expanded: false,
     }
 
-    static contextType = UserContext
+    static contextType = UserContext;
+    
     render() {
     const { id, title, content, date_published, username } = this.props;
 

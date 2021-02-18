@@ -16,7 +16,8 @@ export class PostsList extends Component {
 
     render() {
         const posts = this.props.posts
-
+        const users = this.props.users
+        
         return (
             <div>
                 <ul

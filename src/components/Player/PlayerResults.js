@@ -16,7 +16,7 @@ export class PlayerResults extends Component {
 
     render() {
         const player = this.props.player
-        const user_id = this.props.user_id
+        const user_id = this.context.user.id
 
         const handleClickAdd = (event) => {
             event.preventDefault();
@@ -43,7 +43,7 @@ export class PlayerResults extends Component {
             })
             .then((player) => {
                 this.context.addPlayer(player);
-                this.props.history.push(`/users/${user_id}`)
+                this.props.history.push(`/myteam`)
             })
             .catch((error) => {
                 console.error({error})

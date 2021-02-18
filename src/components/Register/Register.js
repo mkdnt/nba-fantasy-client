@@ -1,37 +1,86 @@
 import React, { Component } from 'react'
+import UserContext from '../../contexts/UserContext'
+import AuthApiService from '../../services/auth-api-service'
 
 export class Register extends Component {
+    static defaultProps = {
+        location: {},
+        history: {
+        push: () => { },
+        },
+    }
+
+  static contextType = UserContext;
+
     render() {
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        const { name, username, password, team_name, email } = event.target
+        AuthApiService.postUser({
+        name: name.value,
+        username: username.value,
+        password: password.value,
+        team_name: team_name.value,
+        email: email.value,
+        })
+        .then(user => {
+        name.value = ''
+        username.value = ''
+        password.value = ''
+        team_name.value = ''
+        email.value = ''
+        this.context.handleRegistrationSuccess()
+      })
+      .catch(res => {
+        this.setState({ error: res.error })
+      })
+    }
         return (
             <div>
                 <h2>Register</h2>
             <p>This is a React-based app that allows users to post about their NBA fantasy basketball teams and read posts from fellow users.
             </p>
-            <p>If you've made an account, you can log in below. Otherwise, please register for an account or log in with the demo account, username: demo, password: DemoPass1234!</p>
-        <form>
-            <label htmlFor="">First Name</label>
-            <input type="text"/>
-            <br/>
-            <label htmlFor="">Last Name</label>
-            <input type="text"/>
-            <br/>
-            <label htmlFor="">Username</label>
-            <input type="text"/>
-            <br/>
-            <label htmlFor="">Password</label>
-            <input type="text"/>
-            <br/>
-            <label htmlFor="">Confirm Password</label>
-            <input type="text"/>
-            <br/>
-            <label htmlFor="">Email</label>
-            <input type="text"/>
-            <br/>
-            <label htmlFor="">Confirm Email</label>
-            <input type="text"/>
-            <br/>
-            <button>Submit</button>
-        </form>
+        <form onSubmit={handleSubmit}>
+          <input
+            id='registration-name-input'
+            name='name'
+            placeholder='Name'
+            required
+          />
+          <input
+            id='registration-email-input'
+            name='email'
+            placeholder='Email'
+            required
+          />
+          <input
+            id='registration-team_name-input'
+            name='team_name'
+            placeholder='Team Name'
+            required
+          />
+          <input
+            id='registration-username-input'
+            name='username'
+            placeholder='Username'
+            required
+          />
+        <div>
+          <input
+            id='registration-password-input'
+            name='password'
+            type='password'
+            placeholder='Password'
+            required
+          />
+        </div>
+        <footer>
+          <button type='submit'>
+            Register
+          </button>
+        </footer>
+      </form>
             </div>
         )
     }

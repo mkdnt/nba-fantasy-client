@@ -18,7 +18,6 @@ export class AddPlayer extends Component {
     static contextType = UserContext;
 
     render() {
-        const { user_id } = this.props.match.params
 
         const handleSearch = (event) => {
             event.preventDefault();
@@ -75,7 +74,6 @@ export class AddPlayer extends Component {
                     <li key={player.id} style={{ textDecoration: "none" }}>
                         <PlayerResults 
                                     player={player}
-                                    user_id={user_id}
                         />
                     </li>
                 ))}

@@ -18,6 +18,7 @@ const UserContext = React.createContext({
     processLogin: () => {},
     processLogout: () => {},
     handleLoginSuccess: () => {},
+    handleRegistrationSuccess: () => {},
 })
 
 export default UserContext
@@ -132,9 +133,14 @@ export class UserProvider extends Component {
   }
 
   handleLoginSuccess = (history) => {
-		const destination = "/";
+		const destination = "/myteam";
 		history.push(destination);
 	};
+
+  handleRegistrationSuccess = (history) => {
+    const destination = '/login'
+    history.push(destination)
+  }
 
   render() {
     const value = {
@@ -148,6 +154,7 @@ export class UserProvider extends Component {
       addPlayer: this.handleAddPlayer,
       deletePlayer: this.handleDeletePlayer,
       handleLoginSuccess: this.handleLoginSuccess,
+      handleRegistrationSuccess: this.handleRegistrationSuccess,
     };
     return (
       <UserContext.Provider value={value}>

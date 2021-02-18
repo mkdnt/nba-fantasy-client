@@ -2,17 +2,19 @@ import React, { Component } from 'react';
 import { Switch } from "react-router-dom";
 import Header from '../Header/Header'
 import Nav from '../Nav/Nav'
-import Dashboard from '../Dashboard/Dashboard'
+import MyTeam from '../MyTeam/MyTeam'
 import About from '../About/About'
 import Login from '../Login/Login'
 import Register from '../Register/Register'
 import PostItem from '../Post/PostItem'
 import UserPage from '../Users/UserPage'
 import UsersList from '../Users/UsersList';
-import NetworkMain from '../Network/NetworkMain';
+import Network from '../Network/Network';
 import AddPlayer from '../Player/AddPlayer';
+import Landing from '../Landing/Landing'
 import PrivateRoute from '../PrivateRoute/PrivateRoute'
 import PublicRoute from '../PublicRoute/PublicRoute'
+import './App.css'
 
 export class App extends Component {
 
@@ -28,15 +30,16 @@ export class App extends Component {
             </header>
             <main>
               <Switch>
-                <PrivateRoute exact path='/' component={Dashboard} />
+                <PrivateRoute exact path='/myteam' component={MyTeam} />
                 <PublicRoute exact path='/about' component={About} />
                 <PublicRoute exact path='/login' component={Login} />
+                <PublicRoute exact path='/' component={Landing} />
                 <PublicRoute exact path='/register' component={Register} />
                 <PrivateRoute exact path='/posts/:post_id' component={PostItem} />
                 <PrivateRoute exact path='/users/:user_id' component={UserPage} />
                 <PrivateRoute exact path='/users' component={UsersList} />
-                <PrivateRoute exact path='/network' component={NetworkMain} />
-                <PrivateRoute exact path='/users/:user_id/addplayer' component={AddPlayer} />
+                <PrivateRoute exact path='/network' component={Network} />
+                <PrivateRoute exact path='/addplayer' component={AddPlayer} />
               </Switch>
             </main>
         </div> 

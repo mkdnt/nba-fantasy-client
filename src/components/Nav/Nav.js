@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import UserContext from '../../contexts/UserContext';
+import TokenService from '../../services/token-service';
 
 export class Nav extends Component {
-    render() {
+    static contextType = UserContext;
+
+    handleLogoutClick = () => {
+        this.context.processLogout();
+    }
+
+    renderLoggedInNav() {
         return (
             <div>
                 <ul>
                     <li>
                         <Link 
-                        to='/login'
+                        to='/myteam'
                         style={{ textDecoration: "none", color: "inherit" }}>
-                        Login
+                        My Team
                         </Link>
                     </li>
 
@@ -19,6 +27,46 @@ export class Nav extends Component {
                         to='/network'
                         style={{ textDecoration: "none", color: "inherit" }}>
                         Network
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link 
+                        onClick={this.handleLogoutClick}
+                        to='/'
+                        style={{ textDecoration: "none", color: "inherit" }}>
+                        Logout
+                        </Link>
+                    </li>
+                </ul>
+                <hr
+                    style={{
+                    width: "100%",
+                    border: "1px solid red",
+                    backgroundColor: "red",
+                    }}
+                />
+            </div>
+        )
+    }
+
+    renderLoggedOutNav() {
+        return (
+            <div>
+                <ul>
+                    <li>
+                        <Link 
+                        to='/register'
+                        style={{ textDecoration: "none", color: "inherit" }}>
+                        Register
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link 
+                        to='/login'
+                        style={{ textDecoration: "none", color: "inherit" }}>
+                        Login
                         </Link>
                     </li>
 
@@ -37,6 +85,14 @@ export class Nav extends Component {
                     backgroundColor: "red",
                     }}
                 />
+            </div>
+        )
+    }
+
+    render() {
+        return (
+            <div>
+                {TokenService.hasAuthToken() ? this.renderLoggedInNav() : this.renderLoggedOutNav()}
             </div>
         )
     }
