@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import AuthApiService from '../services/auth-api-service'
 import TokenService from '../services/token-service'
 import IdleService from '../services/idle-service'
+import api from '../config'
 
 const UserContext = React.createContext({
     user: {},
@@ -21,6 +22,9 @@ const UserContext = React.createContext({
     handleLoginSuccess: () => {},
     handleRegistrationSuccess: () => {},
     handleSubmissionSuccess: () => {},
+    setPosts: () => {},
+    setPlayers: () => {},
+    setUsers: () => {},
 })
 
 export default UserContext
@@ -35,6 +39,11 @@ export class UserProvider extends Component {
         players: [],
         searchResults: false,
         error: null,
+        addPost: this.handleAddPost,
+        editPost: this.handleEditPost,
+        deletePost: this.handleDeletePost,
+        addPlayer: this.handleAddPlayer,
+        deletePlayer: this.handleDeletePlayer,
     };
 
     const jwtPayload = TokenService.parseAuthToken()
@@ -55,6 +64,10 @@ export class UserProvider extends Component {
     if (TokenService.hasAuthToken()) {
       IdleService.registerIdleTimerResets()
     }
+
+    this.setPosts();
+    this.setPlayers();
+    this.setUsers();
   }
 
   componentWillUnmount() {
@@ -76,11 +89,89 @@ export class UserProvider extends Component {
     this.setState({ user })
   }
 
+  setPosts() {
+    fetch(`${api.API_ENDPOINT}/posts`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Something went wrong, please try again.");
+        }
+        return res;
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({
+          posts: data,
+        });
+        console.log('in setposts', this.state.posts)
+      })
+      .catch((error) => {
+        console.error({ error });
+      });
+  }
+
+  setPlayers(){
+    fetch(`${api.API_ENDPOINT}/players`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Something went wrong, please try again.");
+        }
+        return res;
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({
+          players: data,
+        });
+      })
+      .catch((error) => {
+        console.error({ error });
+      });
+  }
+
+  setUsers(){
+    console.log('in setUsers')
+    fetch(`${api.API_ENDPOINT}/users`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Something went wrong, please try again.");
+        }
+        return res;
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({
+          users: data,
+        });
+      })
+      .catch((error) => {
+        console.error({ error });
+      });
+  }
+
   handleDeletePost = (post_id) => {
+    console.log('handledeletepost', this.state.posts)
+    console.log('deleting post', post_id)
     const newPosts = this.state.posts.filter((post) => post.id != post_id);
+    console.log('newposts', newPosts)
     this.setState({
       posts: newPosts,
     })
+    console.log('after', this.state.posts)
   };
 
   handleDeletePlayer = (player_id) => {
@@ -181,6 +272,9 @@ export class UserProvider extends Component {
       handleLoginSuccess: this.handleLoginSuccess,
       handleRegistrationSuccess: this.handleRegistrationSuccess,
       handleSubmissionSuccess: this.handleSubmissionSuccess,
+      setPosts: this.setPosts,
+      setPlayers: this.setPlayers,
+      setUsers: this.setUsers,
     };
     return (
       <UserContext.Provider value={value}>

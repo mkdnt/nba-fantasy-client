@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PostCard from './PostCard'
 import UserContext from '../../contexts/UserContext';
 import api from '../../config';
-
+import './PostCard.css'
 
 export class PostsList extends Component {
     constructor(props) {
@@ -33,8 +33,8 @@ export class PostsList extends Component {
     }
 
     render() {
-    const {user_id} = this.props.match.params
     const posts = this.props.posts
+    const loggedIn = this.props.loggedIn
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -50,7 +50,6 @@ export class PostsList extends Component {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
-                Authorization: `Bearer ${api.API_KEY}`,
             },
             body: JSON.stringify(newPost)
         })
@@ -70,7 +69,7 @@ export class PostsList extends Component {
         if (this.state.adding === false) {
             return (
             <div>
-                {this.context.user.id !== user_id && <button className="buttons" onClick={this.handleClickAdd}>New Post</button>}
+                {loggedIn && <button className="buttons" onClick={this.handleClickAdd}>New Post</button>}
             <section>
                 <ul
                 style={{
@@ -102,8 +101,7 @@ export class PostsList extends Component {
         return (
             <div>
             <div>
-                <h2>New Post</h2>
-                <section>
+                <div className='indiv-post'>
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="post-title">Title</label>
                         <input 
@@ -128,7 +126,7 @@ export class PostsList extends Component {
                         Cancel
                     </button>
                     </form>
-                </section>
+                </div>
             </div>
             <div>
                 <ul

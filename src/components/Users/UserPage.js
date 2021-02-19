@@ -30,8 +30,8 @@ export class UserPage extends Component {
         //test for an empty user
         Promise.all([
         fetch(`${api.API_ENDPOINT}/users/${user_id}`),
-        fetch(`${api.API_ENDPOINT}/posts/${user_id}`),
-        fetch(`${api.API_ENDPOINT}/players/${user_id}`),
+        fetch(`${api.API_ENDPOINT}/posts/byuser/${user_id}`),
+        fetch(`${api.API_ENDPOINT}/players/byuser/${user_id}`),
         ])
         .then(([userRes, userPostsRes, userPlayersRes ]) => {
             if (!userRes.ok) 
@@ -56,7 +56,6 @@ export class UserPage extends Component {
         const user = this.state.user
         const posts = this.state.userPosts
         const players = this.state.userPlayers
-        
 
     return (
             <div>
@@ -64,6 +63,7 @@ export class UserPage extends Component {
                     <h2>{user.team_name}</h2>
                     <p>{user.username}</p>
                 </div>
+                    <h3>Players</h3>
                     <div className='users-players'>
                         <ul
                         style={{
@@ -86,6 +86,7 @@ export class UserPage extends Component {
                     </div>
             
             <div>
+                <h3>Posts</h3>
                 <PostsList 
                     posts={posts}
                 />

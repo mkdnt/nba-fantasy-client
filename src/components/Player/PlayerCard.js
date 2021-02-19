@@ -24,16 +24,18 @@ export class PlayerCard extends Component {
 
         const handleClickDelete = (event) => {
         event.preventDefault();
+        const player_id = player.id
+        console.log('in handleClickDelete', player_id, player.first_name)
 
-        fetch(`${api.API_ENDPOINT}/players/${player.id}`, {
+        fetch(`${api.API_ENDPOINT}/players/${player_id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',
-                Authorization: `Bearer ${api.API_KEY}`,
+                
             },
         })
         .then(() => {
-            this.context.deletePlayer(player.id);
+            this.context.deletePlayer(player_id);
             this.props.history.push(`/users/${user_id}`);
 
         })
@@ -51,8 +53,9 @@ export class PlayerCard extends Component {
 
         if (this.state.expanded === true) {
             return (
-            <div className='player-card' value={player.id} onClick={handleClickExpand} >
-                <p id='player-name'>{player.first_name} {player.last_name}</p>
+            <div className='player-card' value={player.id} >
+                <p id='player-name' onClick={handleClickExpand} style={{cursor: 'pointer'}}>
+                    {player.first_name} {player.last_name}</p>
                 <p id='player-team'>{player.team}</p>
                 <p id='player-position'>Position: {player.position}</p>
                 <button onClick={handleClickDelete}>Delete</button>
@@ -62,8 +65,8 @@ export class PlayerCard extends Component {
 
         else {
             return (
-            <div className='player-card' value={player.id} onClick={handleClickExpand} >
-                <p id='player-name'>{player.first_name} {player.last_name}</p>
+            <div className='player-card' value={player.id}>
+                <p id='player-name' onClick={handleClickExpand} style={{cursor: 'pointer'}}>{player.first_name} {player.last_name}</p>
             </div>
         )
         }

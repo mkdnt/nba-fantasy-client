@@ -6,7 +6,6 @@ import MyTeam from '../MyTeam/MyTeam'
 import About from '../About/About'
 import Login from '../Login/Login'
 import Register from '../Register/Register'
-import PostItem from '../Post/PostItem'
 import UserPage from '../Users/UserPage'
 import UsersList from '../Users/UsersList';
 import Network from '../Network/Network';
@@ -15,8 +14,11 @@ import Landing from '../Landing/Landing'
 import PrivateRoute from '../PrivateRoute/PrivateRoute'
 import PublicRoute from '../PublicRoute/PublicRoute'
 import './App.css'
+import UserContext from '../../contexts/UserContext';
 
 export class App extends Component {
+
+  static contextType = UserContext;
 
   render(){
 
@@ -35,7 +37,6 @@ export class App extends Component {
                 <PublicRoute exact path='/login' component={Login} />
                 <PublicRoute exact path='/' component={Landing} />
                 <PublicRoute exact path='/register' component={Register} />
-                <PrivateRoute exact path='/posts/:post_id' component={PostItem} />
                 <PrivateRoute exact path='/users/:user_id' component={UserPage} />
                 <PrivateRoute exact path='/users' component={UsersList} />
                 <PrivateRoute exact path='/network' component={Network} />

@@ -30,8 +30,10 @@ export class PostCard extends Component {
     }
 
     const handleClickEdit = () => {
+        console.log('in handleClickEdit')
         this.setState({
             editing: true,
+            expanded: false,
         })
     }
 
@@ -52,25 +54,36 @@ export class PostCard extends Component {
             user_id: this.context.user.id,
             author: this.context.user.username,
         };
-        console.log('editpost handlesubmit', editedPost)
-        console.log(id)
 
         fetch(`${api.API_ENDPOINT}/posts/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
-                Authorization: `Bearer ${api.API_KEY}`,
             },
             body: JSON.stringify(editedPost),
         })
         .then(() => {
-            console.log(editedPost)
             this.context.editPost(editedPost);
-            this.setState({
-                editing: false,
-                expanded: false,
-            })
-            console.log('afterfetch in editing')
+            
+        })
+        .catch((error) => {
+            console.error({error})
+        })
+    };
+
+    const handleClickDelete = (event) => {
+        event.preventDefault();
+        const post_id = id
+
+        fetch(`${api.API_ENDPOINT}/posts/${post_id}`, {
+            method: 'DELETE',
+            headers: {
+                'content-type': 'application/json',
+            },
+        })
+        .then(() => {
+            this.context.deletePost(post_id)
+            this.props.history.push(`/myteam`);
         })
         .catch((error) => {
             console.error({error})
@@ -79,9 +92,15 @@ export class PostCard extends Component {
 
         if (this.state.expanded === true){
             return (
-            <div className='indiv-post' value={id} onClick={handleClickExpand}>
-                <h2>{title}</h2>
-                <p>{this.context.user.id === user_id ? <button onClick={handleClickEdit}>Edit</button> : author}</p>
+            <div className='indiv-post' value={id} >
+                <h2 onClick={handleClickExpand} style={{cursor: 'pointer'}}>{title}</h2>
+                <div>{this.context.user.id === user_id ? 
+                <p>
+                <button onClick={handleClickEdit}>Edit</button> 
+                <button onClick={handleClickDelete}>Delete</button>
+                </p>
+                : author}
+                </div>
                 <p>{date_published}</p>
                 <p>{content}</p>
             </div>
@@ -90,7 +109,7 @@ export class PostCard extends Component {
 
         if (this.state.editing === true) {
             return (
-                <div>
+                <div className='indiv-post'>
                     <h2>Edit "{title}"</h2>
                     <form onSubmit={handleSubmit}>
                         <input 
@@ -108,9 +127,7 @@ export class PostCard extends Component {
                         <br />
                     <button className="buttons">Submit</button>
                     <button
-                        className="buttons"
                         onClick={handleClickCancel}
-                        className="buttons"
                     >
                         Cancel
                     </button>
@@ -121,8 +138,8 @@ export class PostCard extends Component {
 
         else {
             return (
-            <div className='indiv-post' value={id} onClick={handleClickExpand}>
-                <h2>{title}</h2>
+            <div className='indiv-post' value={id}>
+                <h2 onClick={handleClickExpand} style={{cursor: 'pointer'}}>{title}</h2>
                 <p>{this.context.user.id !== user_id && author}</p>
                 <p>{date_published}</p>
             </div>

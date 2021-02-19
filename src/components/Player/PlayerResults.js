@@ -56,6 +56,13 @@ export class PlayerResults extends Component {
                 <p id='player-team'>{player.team.full_name}</p>
                 <p id='player-position'>Position: {player.position}</p>
                 <button onClick={handleClickAdd}>Add</button>
+                <hr
+                    style={{
+                    width: "100%",
+                    border: "1px solid red",
+                    backgroundColor: "red",
+                    }}
+                />
             </div>
         )
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import UserContext from '../../contexts/UserContext';
 import api from '../../config';
-import PostsListFull from '../Post/PostsListFull'
+import PostsList from '../Post/PostsList'
 import PlayerCard from '../Player/PlayerCard'
 
 export class MyTeam extends Component {
@@ -27,8 +27,8 @@ export class MyTeam extends Component {
         const user_id = this.context.user.id
         //test for an empty user
         Promise.all([
-        fetch(`${api.API_ENDPOINT}/posts/${user_id}`),
-        fetch(`${api.API_ENDPOINT}/players/${user_id}`),
+        fetch(`${api.API_ENDPOINT}/posts/byuser/${user_id}`),
+        fetch(`${api.API_ENDPOINT}/players/byuser/${user_id}`),
         ])
         .then(([userPostsRes, userPlayersRes ]) => {
             if (!userPostsRes.ok)
@@ -53,9 +53,10 @@ export class MyTeam extends Component {
         const players = this.state.userPlayers
         
         const handleGoToAddPlayer = () => {
-        this.props.history.push(`/addplayer`)
-    }
-        
+            this.props.history.push(`/addplayer`)
+        }
+
+
 
     return (
             <div>
@@ -63,6 +64,7 @@ export class MyTeam extends Component {
                     <h2>{user.team_name}</h2>
                     <p>{user.username}</p>
                 </div>
+                    <h3>Players</h3>
                     <div className='users-players'>
                         <ul
                         style={{
@@ -89,8 +91,10 @@ export class MyTeam extends Component {
                     </div>
             
             <div>
+                <h3>Posts</h3>
                 <PostsList 
                     posts={posts}
+                    loggedIn={user}
                 />
             </div>
         </div>

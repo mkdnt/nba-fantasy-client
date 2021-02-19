@@ -12,7 +12,6 @@ export class UsersList extends Component {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
-        Authorization: `Bearer ${api.API_KEY}`,
       },
     })
     .then((res) => {
