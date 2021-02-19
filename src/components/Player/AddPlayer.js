@@ -12,7 +12,10 @@ export class AddPlayer extends Component {
     static defaultProps = {
         match: {
             params: {}
-        }
+        },
+        history: {
+        push: () => { },
+        },
     };
 
     static contextType = UserContext;

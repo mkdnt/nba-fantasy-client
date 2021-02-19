@@ -13,7 +13,10 @@ export class PostItem extends Component {
     static defaultProps = {
         match: {
             params: {}
-        }
+        },
+        history: {
+        push: () => { },
+        },
     };
 
     static contextType = UserContext;
@@ -40,7 +43,7 @@ export class PostItem extends Component {
     if (!post) {
       return (
         <div>
-          <p>Error.</p>
+          <p>Error. Post not found.</p>
         </div>
       );
     }

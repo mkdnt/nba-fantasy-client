@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer'
 import {BrowserRouter} from 'react-router-dom';
 import UserContext from '../../contexts/UserContext';
-import App from './App';
+import UserPage from './UserPage';
 
-describe('App Component', () => {
+describe('UserPage Component', () => {
   describe('Snapshot', () => {
     it('renders the UI as expected', () => {
-      const update = renderer.create(<BrowserRouter><App /></BrowserRouter>)
+      const update = renderer.create(<BrowserRouter><UserPage /></BrowserRouter>)
         expect(update).toMatchSnapshot()
     })
   })
@@ -40,7 +40,7 @@ describe('App Component', () => {
       ReactDOM.render(
         <BrowserRouter>
           <UserContext.Provider value={value}>
-            <App />
+            <UserPage />
         </UserContext.Provider>
         </BrowserRouter>,
       div);

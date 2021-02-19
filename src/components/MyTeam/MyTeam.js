@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import UserContext from '../../contexts/UserContext';
 import api from '../../config';
-import PostsList from '../Post/PostsList'
+import PostsListFull from '../Post/PostsListFull'
 import PlayerCard from '../Player/PlayerCard'
 
 export class MyTeam extends Component {

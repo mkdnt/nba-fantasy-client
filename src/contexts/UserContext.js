@@ -9,6 +9,7 @@ const UserContext = React.createContext({
     users: [],
     players: [],
     searchResults: false,
+    error: null,
     addPost: () => {},
     editPost: () => {},
     deletePost: () => {},
@@ -19,6 +20,7 @@ const UserContext = React.createContext({
     processLogout: () => {},
     handleLoginSuccess: () => {},
     handleRegistrationSuccess: () => {},
+    handleSubmissionSuccess: () => {},
 })
 
 export default UserContext
@@ -31,7 +33,8 @@ export class UserProvider extends Component {
         posts: [],
         users: [],
         players: [],
-        searchResults: false, 
+        searchResults: false,
+        error: null,
     };
 
     const jwtPayload = TokenService.parseAuthToken()
@@ -59,6 +62,15 @@ export class UserProvider extends Component {
     TokenService.clearCallbackBeforeExpiry()
   }
 
+  setError = error => {
+    console.error(error)
+    this.setState({ error })
+  } 
+
+  clearError = () => {
+    this.setState({ error: null })
+  }
+
 
   setUser = user => {
     this.setState({ user })
@@ -79,6 +91,7 @@ export class UserProvider extends Component {
   };
 
   handleEditPost = (editedPost) => {
+    console.log('in handleEditPost in context', editedPost)
     this.setState({
       posts: this.state.posts.map((post) => 
         post.id != editedPost.id ? post : editedPost
@@ -142,9 +155,21 @@ export class UserProvider extends Component {
     history.push(destination)
   }
 
+  handleSubmissionSuccess = (history) => {
+		const destination = '/myteam';
+		history.push(destination);
+	};
+
   render() {
     const value = {
       user: this.state.user,
+      users: this.state.users,
+      posts: this.state.posts,
+      players: this.state.players,
+      error: this.state.error,
+      searchResults: this.state.searchResults,
+      setError: this.setError,
+      clearError: this.clearError,
       setUser: this.setUser,
       processLogin: this.processLogin,
       processLogout: this.processLogout,
@@ -155,6 +180,7 @@ export class UserProvider extends Component {
       deletePlayer: this.handleDeletePlayer,
       handleLoginSuccess: this.handleLoginSuccess,
       handleRegistrationSuccess: this.handleRegistrationSuccess,
+      handleSubmissionSuccess: this.handleSubmissionSuccess,
     };
     return (
       <UserContext.Provider value={value}>

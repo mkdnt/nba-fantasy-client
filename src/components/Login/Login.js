@@ -10,14 +10,21 @@ export class Login extends Component {
         },
     }
 
+    state = {
+        error: null,
+    }
+
   static contextType = UserContext;
 
     render() {
 
+    const { error } = this.state
+
     const handleSubmit = (event) => {
         event.preventDefault()
         const { username, password } = event.target
-        console.log('on Login.js', username.value, password.value)
+        
+        this.setState({error: null})
 
         AuthApiService.postLogin({
         username: username.value,
@@ -39,6 +46,7 @@ export class Login extends Component {
                 <p>Clipboard is a React-based app that allows users to post about their NBA fantasy basketball teams and read posts from fellow users.
             </p>
             <form onSubmit={handleSubmit}>
+                <div role='alert'>{error && <p>{error}</p>}</div>
                 <input id='login-username-input' name='username' type="text" placeholder='username' required />
                 <input id='login-password-input' name='password' type="password" placeholder='password' required />
                 <button type='submit'>

@@ -33,8 +33,8 @@ export class PostsList extends Component {
     }
 
     render() {
-
-    const posts = this.context.posts
+    const {user_id} = this.props.match.params
+    const posts = this.props.posts
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -42,6 +42,8 @@ export class PostsList extends Component {
             title: event.target['post-title'].value,
             content: event.target['post-content'].value,
             date_published: new Date(),
+            user_id: this.context.user.id,
+            author: this.context.user.username
         };
 
         fetch(`${api.API_ENDPOINT}/posts`, {
@@ -58,7 +60,7 @@ export class PostsList extends Component {
         })
         .then((post) => {
             this.context.addPost(post);
-            this.props.history.push(`/posts/${post.id}`);
+            this.context.handleSubmissionSuccess();
         })
         .catch((error) => {
             console.error({error})
@@ -68,9 +70,7 @@ export class PostsList extends Component {
         if (this.state.adding === false) {
             return (
             <div>
-                <button className="buttons" onClick={this.handleClickAdd}>
-                    New Post
-                </button>
+                {this.context.user.id !== user_id && <button className="buttons" onClick={this.handleClickAdd}>New Post</button>}
             <section>
                 <ul
                 style={{
@@ -87,6 +87,8 @@ export class PostsList extends Component {
                             title={post.title}
                             content={post.content}
                             date_published={post.date_published}
+                            user_id={post.user_id}
+                            author={post.author}
                         />
                     </li>
                 ))}
@@ -144,6 +146,8 @@ export class PostsList extends Component {
                             title={post.title}
                             content={post.content}
                             date_published={post.date_published}
+                            user_id={post.user_id}
+                            author={post.author}
                         />
                     </li>
                 ))}

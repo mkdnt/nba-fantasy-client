@@ -10,9 +10,15 @@ export class Register extends Component {
         },
     }
 
-  static contextType = UserContext;
+    state = {
+      error: null,
+    }
+
+    static contextType = UserContext;
 
     render() {
+
+    const { error } = this.state
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -42,6 +48,7 @@ export class Register extends Component {
             <p>This is a React-based app that allows users to post about their NBA fantasy basketball teams and read posts from fellow users.
             </p>
         <form onSubmit={handleSubmit}>
+          <div role='alert'>{error && <p>{error}</p>}</div>
           <input
             id='registration-name-input'
             name='name'
