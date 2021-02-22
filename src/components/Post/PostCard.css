@@ -5,11 +5,18 @@
 .indiv-post {
     border: 2px solid black;
     padding: 0.3em;
-    margin: 0.3em;   
-}
+    margin: 0.3em;
+    text-align: left;
+  }
 
 .indiv-post:hover{
     background-color: white;
+}
+
+.new-post {
+    border: 2px solid black;
+    padding: 0.3em;
+    margin: 0.3em; 
 }
 
 /* 

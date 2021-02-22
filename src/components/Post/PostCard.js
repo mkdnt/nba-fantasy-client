@@ -2,15 +2,13 @@ import React, { Component } from 'react';
 import UserContext from '../../contexts/UserContext';
 import api from '../../config';
 import './PostCard.css';
+import moment from 'moment';
 
 export class PostCard extends Component {
     static defaultProps = {
         match: {
             params: {}
         },
-        history: {
-        push: () => {},
-        }
     };
 
     state = {
@@ -50,7 +48,7 @@ export class PostCard extends Component {
             id: id,
             title: event.target['post-title'].value,
             content: event.target['post-content'].value,
-            date_published: date_published,
+            date_published: new Date(),
             user_id: this.context.user.id,
             author: this.context.user.username,
         };
@@ -64,7 +62,7 @@ export class PostCard extends Component {
         })
         .then(() => {
             this.context.editPost(editedPost);
-            
+            this.props.history.push('/')
         })
         .catch((error) => {
             console.error({error})
@@ -93,7 +91,7 @@ export class PostCard extends Component {
         if (this.state.expanded === true){
             return (
             <div className='indiv-post' value={id} >
-                <h2 onClick={handleClickExpand} style={{cursor: 'pointer'}}>{title}</h2>
+                <h4 onClick={handleClickExpand} style={{cursor: 'pointer'}}>{title}</h4>
                 <div>{this.context.user.id === user_id ? 
                 <p>
                 <button onClick={handleClickEdit}>Edit</button> 
@@ -101,7 +99,7 @@ export class PostCard extends Component {
                 </p>
                 : author}
                 </div>
-                <p>{date_published}</p>
+                <p>{moment(date_published).format('MMM DD YYYY | hh:mma')}</p>
                 <p>{content}</p>
             </div>
         )
@@ -109,7 +107,7 @@ export class PostCard extends Component {
 
         if (this.state.editing === true) {
             return (
-                <div className='indiv-post'>
+                <div className='new-post'>
                     <h2>Edit "{title}"</h2>
                     <form onSubmit={handleSubmit}>
                         <input 
@@ -139,9 +137,9 @@ export class PostCard extends Component {
         else {
             return (
             <div className='indiv-post' value={id}>
-                <h2 onClick={handleClickExpand} style={{cursor: 'pointer'}}>{title}</h2>
+                <h4 onClick={handleClickExpand} style={{cursor: 'pointer'}}>{title}</h4>
                 <p>{this.context.user.id !== user_id && author}</p>
-                <p>{date_published}</p>
+                <p>{moment(date_published).format('MMM DD YYYY | hh:mma')}</p>
             </div>
         )
         }

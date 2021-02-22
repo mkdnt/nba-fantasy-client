@@ -4,6 +4,7 @@ body {
   background: #E8EAEE;
   margin: 0;
   font-family: Avenir Next, Avenir, Helvetica Neue, Arial, sans-serif;
+  font-size: smaller;
   width: auto;
 }
 
@@ -52,6 +53,12 @@ button:hover{
 background-color: #90E0EF;
 }
 
+.alert {
+  border: 2px solid red;
+  text-align: center;
+  background-color: white;
+}
+
 header nav ul li:hover  { color: red;  }
 
 main {
@@ -73,6 +80,18 @@ input {
 
   input:focus {
     outline: none;
+  }
+
+  textarea {
+    display: block;
+    border: none;
+    border-bottom: 2px solid red;
+    margin: 2px 0;
+    background-color: #E8EAEE;
+    width: 90%;
+    height: 100px;
+    padding: 0.3em;
+    font-family: inherit;
   }
 
 /* BROWSER view... */

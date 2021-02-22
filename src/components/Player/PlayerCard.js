@@ -7,9 +7,6 @@ export class PlayerCard extends Component {
         match: {
             params: {},
         },
-        history: {
-        push: () => {},
-        }
     };
 
     static contextType = UserContext
@@ -20,7 +17,6 @@ export class PlayerCard extends Component {
 
     render() {
         const player = this.props.player
-        const user_id = this.props.user_id
 
         const handleClickDelete = (event) => {
         event.preventDefault();
@@ -36,7 +32,7 @@ export class PlayerCard extends Component {
         })
         .then(() => {
             this.context.deletePlayer(player_id);
-            this.props.history.push(`/users/${user_id}`);
+            this.props.history.push(`/`);
 
         })
         .catch((error) => {
@@ -58,7 +54,7 @@ export class PlayerCard extends Component {
                     {player.first_name} {player.last_name}</p>
                 <p id='player-team'>{player.team}</p>
                 <p id='player-position'>Position: {player.position}</p>
-                <button onClick={handleClickDelete}>Delete</button>
+                {this.context.user.id === player.user_id && <button onClick={handleClickDelete}>Delete</button>}
             </div>
         )
         }

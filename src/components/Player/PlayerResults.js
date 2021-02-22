@@ -7,9 +7,6 @@ export class PlayerResults extends Component {
         match: {
             params: {},
         },
-        history: {
-        push: () => {},
-        }
     };
 
     static contextType = UserContext
@@ -21,7 +18,6 @@ export class PlayerResults extends Component {
         const handleClickAdd = (event) => {
             event.preventDefault();
             const newPlayer = {
-                //nba_id is coming from the third party NBA API
                 first_name: player.first_name,
                 last_name: player.last_name,
                 team: player.team.full_name,
@@ -43,7 +39,7 @@ export class PlayerResults extends Component {
             })
             .then((player) => {
                 this.context.addPlayer(player);
-                this.props.history.push(`/myteam`)
+                this.props.history.push(`/`)
             })
             .catch((error) => {
                 console.error({error})
@@ -56,13 +52,6 @@ export class PlayerResults extends Component {
                 <p id='player-team'>{player.team.full_name}</p>
                 <p id='player-position'>Position: {player.position}</p>
                 <button onClick={handleClickAdd}>Add</button>
-                <hr
-                    style={{
-                    width: "100%",
-                    border: "1px solid red",
-                    backgroundColor: "red",
-                    }}
-                />
             </div>
         )
     }

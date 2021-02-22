@@ -9,7 +9,6 @@ import Register from '../Register/Register'
 import UserPage from '../Users/UserPage'
 import UsersList from '../Users/UsersList';
 import Network from '../Network/Network';
-import AddPlayer from '../Player/AddPlayer';
 import Landing from '../Landing/Landing'
 import PrivateRoute from '../PrivateRoute/PrivateRoute'
 import PublicRoute from '../PublicRoute/PublicRoute'
@@ -40,7 +39,6 @@ export class App extends Component {
                 <PrivateRoute exact path='/users/:user_id' component={UserPage} />
                 <PrivateRoute exact path='/users' component={UsersList} />
                 <PrivateRoute exact path='/network' component={Network} />
-                <PrivateRoute exact path='/addplayer' component={AddPlayer} />
               </Switch>
             </main>
         </div> 

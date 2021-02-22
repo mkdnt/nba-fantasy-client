@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PostCard from './PostCard'
 import UserContext from '../../contexts/UserContext';
 import api from '../../config';
+import moment from 'moment'
 import './PostCard.css'
 
 export class PostsList extends Component {
@@ -35,6 +36,7 @@ export class PostsList extends Component {
     render() {
     const posts = this.props.posts
     const loggedIn = this.props.loggedIn
+    const sortedPosts = posts.sort((a, b) => moment(b.date_published).valueOf() - moment(a.date_published).valueOf())
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -59,7 +61,7 @@ export class PostsList extends Component {
         })
         .then((post) => {
             this.context.addPost(post);
-            this.context.handleSubmissionSuccess();
+            this.props.history.push('/')
         })
         .catch((error) => {
             console.error({error})
@@ -69,7 +71,7 @@ export class PostsList extends Component {
         if (this.state.adding === false) {
             return (
             <div>
-                {loggedIn && <button className="buttons" onClick={this.handleClickAdd}>New Post</button>}
+                {loggedIn && <button className="buttons" style={{marginLeft: '0.3em'}} onClick={this.handleClickAdd}>New Post</button>}
             <section>
                 <ul
                 style={{
@@ -79,7 +81,7 @@ export class PostsList extends Component {
                 paddingLeft: "0",
                 }}
                 >
-                {posts.map((post) => (
+                {sortedPosts.map((post) => (
                     <li key={post.id} style={{ textDecoration: "none" }}>
                         <PostCard 
                             id={post.id}
@@ -88,6 +90,7 @@ export class PostsList extends Component {
                             date_published={post.date_published}
                             user_id={post.user_id}
                             author={post.author}
+                            history={this.props.history}
                         />
                     </li>
                 ))}
@@ -101,27 +104,24 @@ export class PostsList extends Component {
         return (
             <div>
             <div>
-                <div className='indiv-post'>
+                <div className='new-post'>
                     <form onSubmit={handleSubmit}>
-                        <label htmlFor="post-title">Title</label>
                         <input 
                             type="text"
                             id='post-title'
                             name='post-title'
+                            placeholder='Title'
                         />
-
-                        <label htmlFor="post-content">Content</label>
                         <textarea
                             type="text"
                             id='post-content'
                             name='post-content'
+                            placeholder="What's up with your team?"
                         ></textarea> 
                         <br />
                     <button className="buttons">Submit</button>
                     <button
-                        className="buttons"
                         onClick={this.handleClickCancel}
-                        className="buttons"
                     >
                         Cancel
                     </button>
@@ -137,7 +137,7 @@ export class PostsList extends Component {
                 paddingLeft: "0",
                 }}
                 >
-                {posts.map((post) => (
+                {sortedPosts.map((post) => (
                     <li key={post.id} style={{ textDecoration: "none" }}>
                         <PostCard 
                             id={post.id}

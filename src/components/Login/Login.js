@@ -43,12 +43,10 @@ export class Login extends Component {
         return (
             <div>
                 <h2>Login</h2>
-                <p>Clipboard is a React-based app that allows users to post about their NBA fantasy basketball teams and read posts from fellow users.
-            </p>
             <form onSubmit={handleSubmit}>
-                <div role='alert'>{error && <p>{error}</p>}</div>
-                <input id='login-username-input' name='username' type="text" placeholder='username' required />
-                <input id='login-password-input' name='password' type="password" placeholder='password' required />
+                <input id='login-username-input' name='username' type="text" placeholder='Username' required />
+                <input id='login-password-input' name='password' type="password" placeholder='Password' required />
+                <div role='alert'>{error && <p className='alert'>{error}</p>}</div>
                 <button type='submit'>
                     Log In
                 </button>

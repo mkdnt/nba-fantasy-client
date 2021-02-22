@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
 import UserContext from '../../contexts/UserContext';
 import api from '../../config';
-import PostsList from '../Post/PostsList'
-import PlayerCard from '../Player/PlayerCard'
+import PostsList from '../Post/PostsList';
+import PlayersList from '../Player/PlayersList';
 
 export class MyTeam extends Component {
-    state = {
-        userPosts: [],
-        playersToAdd: [],
-        userPlayers: [],
-    };
+    constructor(props) {
+        super(props);
+        // this.modalOpen = this.modalOpen.bind(this);
+        // this.modalClose = this.modalClose.bind(this);
+        this.state = {
+            userPosts: [],
+            playersToAdd: [],
+            userPlayers: [],
+            show: false,
+        }
+    }
 
     static defaultProps = {
         match: {
             params: {}
-        }
+        },
     };
 
     static contextType = UserContext;
@@ -52,11 +58,9 @@ export class MyTeam extends Component {
         const posts = this.state.userPosts
         const players = this.state.userPlayers
         
-        const handleGoToAddPlayer = () => {
-            this.props.history.push(`/addplayer`)
-        }
+        
 
-
+        
 
     return (
             <div>
@@ -66,35 +70,19 @@ export class MyTeam extends Component {
                 </div>
                     <h3>Players</h3>
                     <div className='users-players'>
-                        <ul
-                        style={{
-                        listStyleType: "none",
-                        textDecoration: "none",
-                        color: "inherit",
-                        paddingLeft: "0",
-                        }}
-                        >
-                        {players.map((player) => (
-                            <li key={player.id} style={{ textDecoration: "none" }}>
-                                <PlayerCard 
-                                    player={player}
-                                />
-                            </li>
-                            
-                        ))}
-                            <li className='add-player-button' 
-                            style={{ textDecoration: "none", paddingTop: '1.3em' }} 
-                            onClick={handleGoToAddPlayer}>
-                                Add Player
-                            </li>
-                        </ul>
+                        <PlayersList 
+                            players={players}
+                            history={this.props.history}
+                        />
                     </div>
+                
             
             <div>
                 <h3>Posts</h3>
                 <PostsList 
                     posts={posts}
                     loggedIn={user}
+                    history={this.props.history}
                 />
             </div>
         </div>

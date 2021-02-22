@@ -107,7 +107,6 @@ export class UserProvider extends Component {
         this.setState({
           posts: data,
         });
-        console.log('in setposts', this.state.posts)
       })
       .catch((error) => {
         console.error({ error });
@@ -162,6 +161,8 @@ export class UserProvider extends Component {
         console.error({ error });
       });
   }
+
+  
 
   handleDeletePost = (post_id) => {
     console.log('handledeletepost', this.state.posts)
@@ -238,6 +239,7 @@ export class UserProvider extends Component {
 
   handleLoginSuccess = (history) => {
 		const destination = "/myteam";
+    console.log('in loginSuccess, history', history)
 		history.push(destination);
 	};
 
@@ -246,9 +248,11 @@ export class UserProvider extends Component {
     history.push(destination)
   }
 
-  handleSubmissionSuccess = (history) => {
+  handleSubmissionSuccess = () => {
 		const destination = '/myteam';
-		history.push(destination);
+    console.log('in handleSubSuccess, destin', destination)
+    console.log('in sdjsadf;', this.state.history)
+		this.state.history.push(destination);
 	};
 
   render() {

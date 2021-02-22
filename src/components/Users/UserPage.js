@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import UserContext from '../../contexts/UserContext';
 import api from '../../config';
 import PostsList from '../Post/PostsList'
-import PlayerCard from '../Player/PlayerCard'
+import PlayersList from '../Player/PlayersList'
 import './UserPage.css';
 
 export class UserPage extends Component {
     state = {
         user: {},
         userPosts: [],
-        playersToAdd: [],
         userPlayers: [],
     };
 
@@ -65,24 +64,10 @@ export class UserPage extends Component {
                 </div>
                     <h3>Players</h3>
                     <div className='users-players'>
-                        <ul
-                        style={{
-                        listStyleType: "none",
-                        textDecoration: "none",
-                        color: "inherit",
-                        paddingLeft: "0",
-                        }}
-                        >
-                        {players.map((player) => (
-                            <li key={player.id} style={{ textDecoration: "none" }}>
-                                {console.log('userpage', players)}
-                                <PlayerCard 
-                                    player={player}
-                                />
-                            </li>
-                            
-                        ))}
-                        </ul>
+                        <PlayersList 
+                            players={players}
+                            history={this.props.history}
+                        />
                     </div>
             
             <div>
