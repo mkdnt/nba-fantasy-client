@@ -6,7 +6,7 @@ export class Header extends Component {
         return (
             <div>
                 <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-                    <h1>NBA Notes</h1>
+                    <h1>Full Court</h1>
                 </Link>
                 <hr
                     style={{

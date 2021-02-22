@@ -34,7 +34,6 @@ describe('MyTeam Component', () => {
         processLogout: () => {},
         handleLoginSuccess: () => {},
         handleRegistrationSuccess: () => {},
-        handleSubmissionSuccess: () => {},
         }
 
       ReactDOM.render(

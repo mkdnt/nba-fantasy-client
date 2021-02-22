@@ -34,7 +34,6 @@ describe('PostsList Component', () => {
         processLogout: () => {},
         handleLoginSuccess: () => {},
         handleRegistrationSuccess: () => {},
-        handleSubmissionSuccess: () => {},
         }
 
       ReactDOM.render(

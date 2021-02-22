@@ -71,7 +71,7 @@ export class PostsList extends Component {
         if (this.state.adding === false) {
             return (
             <div>
-                {loggedIn && <button className="buttons" style={{marginLeft: '0.3em'}} onClick={this.handleClickAdd}>New Post</button>}
+                {loggedIn && <button style={{marginLeft: '0.3em'}} onClick={this.handleClickAdd}>New Post</button>}
             <section>
                 <ul
                 style={{
@@ -119,7 +119,7 @@ export class PostsList extends Component {
                             placeholder="What's up with your team?"
                         ></textarea> 
                         <br />
-                    <button className="buttons">Submit</button>
+                    <button>Submit</button>
                     <button
                         onClick={this.handleClickCancel}
                     >
@@ -146,6 +146,7 @@ export class PostsList extends Component {
                             date_published={post.date_published}
                             user_id={post.user_id}
                             author={post.author}
+                            history={this.props.history}
                         />
                     </li>
                 ))}

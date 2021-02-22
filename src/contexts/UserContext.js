@@ -21,7 +21,6 @@ const UserContext = React.createContext({
     processLogout: () => {},
     handleLoginSuccess: () => {},
     handleRegistrationSuccess: () => {},
-    handleSubmissionSuccess: () => {},
     setPosts: () => {},
     setPlayers: () => {},
     setUsers: () => {},
@@ -248,13 +247,6 @@ export class UserProvider extends Component {
     history.push(destination)
   }
 
-  handleSubmissionSuccess = () => {
-		const destination = '/myteam';
-    console.log('in handleSubSuccess, destin', destination)
-    console.log('in sdjsadf;', this.state.history)
-		this.state.history.push(destination);
-	};
-
   render() {
     const value = {
       user: this.state.user,
@@ -275,7 +267,6 @@ export class UserProvider extends Component {
       deletePlayer: this.handleDeletePlayer,
       handleLoginSuccess: this.handleLoginSuccess,
       handleRegistrationSuccess: this.handleRegistrationSuccess,
-      handleSubmissionSuccess: this.handleSubmissionSuccess,
       setPosts: this.setPosts,
       setPlayers: this.setPlayers,
       setUsers: this.setUsers,

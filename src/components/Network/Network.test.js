@@ -34,7 +34,6 @@ describe('Network Component', () => {
         processLogout: () => {},
         handleLoginSuccess: () => {},
         handleRegistrationSuccess: () => {},
-        handleSubmissionSuccess: () => {},
         }
 
       ReactDOM.render(

@@ -12,11 +12,3 @@
 .users-players ul li:hover{
     background-color: white;
 }
-
-.add-player-button {
-    background-color: #90E0EF;
-}
-
-.add-player-button:hover {
-    background-color: #90E0EF;
-}

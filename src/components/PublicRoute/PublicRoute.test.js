@@ -34,7 +34,6 @@ describe('PublicRoute Component', () => {
         processLogout: () => {},
         handleLoginSuccess: () => {},
         handleRegistrationSuccess: () => {},
-        handleSubmissionSuccess: () => {},
         }
 
       ReactDOM.render(

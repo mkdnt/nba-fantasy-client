@@ -34,7 +34,6 @@ describe('App Component', () => {
         processLogout: () => {},
         handleLoginSuccess: () => {},
         handleRegistrationSuccess: () => {},
-        handleSubmissionSuccess: () => {},
         }
 
       ReactDOM.render(

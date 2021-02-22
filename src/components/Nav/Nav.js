@@ -26,7 +26,7 @@ export class Nav extends Component {
                         <Link 
                         to='/network'
                         style={{ textDecoration: "none", color: "inherit" }}>
-                        Network
+                        League Stories
                         </Link>
                     </li>
 

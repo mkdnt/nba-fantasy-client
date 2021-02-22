@@ -89,12 +89,8 @@ export class PlayersList extends Component {
                     </li>
                     
                 ))}
-                    <li className='add-player-button' 
-                    style={{ textDecoration: "none", paddingTop: '1.3em', cursor: 'pointer' }}
-                    onClick={handleAddPlayer}>
-                        Add Player
-                    </li>
                 </ul>
+                <button style={{marginLeft: '0.3em'}} onClick={handleAddPlayer}>Add Player</button>
                 {this.state.searching &&
                     <form onSubmit={handleSearch}>
                     <input 

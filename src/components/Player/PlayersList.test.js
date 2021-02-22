@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer'
 import {BrowserRouter} from 'react-router-dom';
 import UserContext from '../../contexts/UserContext';
-import PostCard from './PostCard';
+import PlayersList from './PlayersList';
 
-describe('PostCard Component', () => {
+describe('PlayersList Component', () => {
   describe('Snapshot', () => {
     it('renders the UI as expected', () => {
-      const update = renderer.create(<BrowserRouter><PostCard /></BrowserRouter>)
+      const update = renderer.create(<BrowserRouter><PlayersList /></BrowserRouter>)
         expect(update).toMatchSnapshot()
     })
   })
@@ -39,7 +39,7 @@ describe('PostCard Component', () => {
       ReactDOM.render(
         <BrowserRouter>
           <UserContext.Provider value={value}>
-            <PostCard />
+            <PlayersList />
         </UserContext.Provider>
         </BrowserRouter>,
       div);

@@ -67,7 +67,7 @@ export class Network extends Component {
                 ))}
                 </ul>
                 </div>
-                <h2>Posts</h2>
+                <h2>League Stories</h2>
                 <div>
                     <PostsList 
                         posts={posts}

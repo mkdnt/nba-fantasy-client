@@ -81,7 +81,7 @@ export class PostCard extends Component {
         })
         .then(() => {
             this.context.deletePost(post_id)
-            this.props.history.push(`/myteam`);
+            this.props.history.push('/')
         })
         .catch((error) => {
             console.error({error})
@@ -108,7 +108,7 @@ export class PostCard extends Component {
         if (this.state.editing === true) {
             return (
                 <div className='new-post'>
-                    <h2>Edit "{title}"</h2>
+                    <h4>Edit "{title}"</h4>
                     <form onSubmit={handleSubmit}>
                         <input 
                             type="text"
@@ -123,7 +123,7 @@ export class PostCard extends Component {
                             defaultValue={content}
                         ></textarea> 
                         <br />
-                    <button className="buttons">Submit</button>
+                    <button>Submit</button>
                     <button
                         onClick={handleClickCancel}
                     >
