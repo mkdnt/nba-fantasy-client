@@ -161,14 +161,14 @@ export class UserProvider extends Component {
   
 
   handleDeletePost = (post_id) => {
-    const newPosts = this.state.posts.filter((post) => post.id != post_id);
+    const newPosts = this.state.posts.filter((post) => post.id !== post_id);
     this.setState({
       posts: newPosts,
     })
   };
 
   handleDeletePlayer = (player_id) => {
-    const newPlayers = this.state.players.filter((player) => player.user_id != player_id);
+    const newPlayers = this.state.players.filter((player) => player.user_id !== player_id);
     this.setState({
       players: newPlayers,
     })
@@ -177,7 +177,7 @@ export class UserProvider extends Component {
   handleEditPost = (editedPost) => {
     this.setState({
       posts: this.state.posts.map((post) => 
-        post.id != editedPost.id ? post : editedPost
+        post.id !== editedPost.id ? post : editedPost
       ),
     });
   };

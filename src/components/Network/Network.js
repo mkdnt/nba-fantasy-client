@@ -42,7 +42,7 @@ export class Network extends Component {
     render() {
         //filter the users from state to exclude logged in user from context, displaying only "other" teams for the logged in user to see
 
-        const users = this.state.allUsers.filter(user => user.id != this.context.user.id)
+        const users = this.state.allUsers.filter(user => user.id !== this.context.user.id)
 
         //bring all posts, including user's posts, so it is a full picture of what is happening around the league
 
