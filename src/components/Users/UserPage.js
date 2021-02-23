@@ -20,13 +20,10 @@ export class UserPage extends Component {
 
     static contextType = UserContext;
 
-    //what are you mounting, etc.
-    //call functions for fetching inside of CDM
-    // fetchUsers(), fetchPosts()
-    //try and catch
+    
     componentDidMount() {
         const { user_id } = this.props.match.params;
-        //test for an empty user
+        //grab user_id from params and fetch the user's info, posts, and players
         Promise.all([
         fetch(`${api.API_ENDPOINT}/users/${user_id}`),
         fetch(`${api.API_ENDPOINT}/posts/byuser/${user_id}`),
@@ -56,11 +53,13 @@ export class UserPage extends Component {
         const posts = this.state.userPosts
         const players = this.state.userPlayers
 
+        //send user's info to PostsList and PlayersList for display, just like on MyTeam component for the logged in user
+
     return (
             <div>
                 <div>
                     <h2>{user.team_name}</h2>
-                    <p>{user.username}</p>
+                    <p>Manager: {user.username}</p>
                 </div>
                     <h3>Players</h3>
                     <div className='users-players'>
@@ -74,6 +73,7 @@ export class UserPage extends Component {
                 <h3>Posts</h3>
                 <PostsList 
                     posts={posts}
+                    history={this.props.history}
                 />
             </div>
         </div>

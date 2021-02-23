@@ -22,7 +22,6 @@ describe('Header Component', () => {
         posts: [],
         users: [],
         players: [],
-        searchResults: false,
         error: null,
         addPost: () => {},
         editPost: () => {},

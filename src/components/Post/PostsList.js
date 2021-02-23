@@ -34,8 +34,11 @@ export class PostsList extends Component {
     }
 
     render() {
+        //post props from UserPage, Network, or MyTeam
     const posts = this.props.posts
+        //loggedIn comes from MyTeam, to filter what is shown below based on logged in user's info
     const loggedIn = this.props.loggedIn
+        //sort posts by time, most recent first
     const sortedPosts = posts.sort((a, b) => moment(b.date_published).valueOf() - moment(a.date_published).valueOf())
 
     const handleSubmit = (event) => {
@@ -68,6 +71,8 @@ export class PostsList extends Component {
         });
     };
 
+    //first display to be shown, just a list of PostCards
+    //New Post button will only be shown on a post list when loggedIn has info passed from MyTeam, ie only appears on posts from the logged in user as it is never defined from the "others" UserPage
         if (this.state.adding === false) {
             return (
             <div>
@@ -100,6 +105,10 @@ export class PostsList extends Component {
         )
         }
 
+        //display this if New Post is clicked and this.state.adding becomes true
+        //can only be done on the logged in user's page; logged in user will not see New Post button on another user's page and will never reach this display
+        //submission form for new post with previous posts still listed below
+        //handleSubmit for fetch POST above
     else {
         return (
             <div>

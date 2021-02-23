@@ -9,7 +9,6 @@ const UserContext = React.createContext({
     posts: [],
     users: [],
     players: [],
-    searchResults: false,
     error: null,
     addPost: () => {},
     editPost: () => {},
@@ -36,7 +35,6 @@ export class UserProvider extends Component {
         posts: [],
         users: [],
         players: [],
-        searchResults: false,
         error: null,
         addPost: this.handleAddPost,
         editPost: this.handleEditPost,
@@ -52,7 +50,7 @@ export class UserProvider extends Component {
         id: jwtPayload.user_id,
         name: jwtPayload.name,
         username: jwtPayload.sub,
-        team_name: jwtPayload.sub,
+        team_name: jwtPayload.team_name,
       }
 
     this.state = state;
@@ -137,7 +135,6 @@ export class UserProvider extends Component {
   }
 
   setUsers(){
-    console.log('in setUsers')
     fetch(`${api.API_ENDPOINT}/users`, {
       method: "GET",
       headers: {
@@ -164,14 +161,10 @@ export class UserProvider extends Component {
   
 
   handleDeletePost = (post_id) => {
-    console.log('handledeletepost', this.state.posts)
-    console.log('deleting post', post_id)
     const newPosts = this.state.posts.filter((post) => post.id != post_id);
-    console.log('newposts', newPosts)
     this.setState({
       posts: newPosts,
     })
-    console.log('after', this.state.posts)
   };
 
   handleDeletePlayer = (player_id) => {
@@ -182,7 +175,6 @@ export class UserProvider extends Component {
   };
 
   handleEditPost = (editedPost) => {
-    console.log('in handleEditPost in context', editedPost)
     this.setState({
       posts: this.state.posts.map((post) => 
         post.id != editedPost.id ? post : editedPost
@@ -238,7 +230,6 @@ export class UserProvider extends Component {
 
   handleLoginSuccess = (history) => {
 		const destination = "/myteam";
-    console.log('in loginSuccess, history', history)
 		history.push(destination);
 	};
 
@@ -254,7 +245,6 @@ export class UserProvider extends Component {
       posts: this.state.posts,
       players: this.state.players,
       error: this.state.error,
-      searchResults: this.state.searchResults,
       setError: this.setError,
       clearError: this.clearError,
       setUser: this.setUser,

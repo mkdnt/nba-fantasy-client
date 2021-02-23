@@ -19,7 +19,7 @@ export class Network extends Component {
     static contextType = UserContext;
 
     componentDidMount() {
-        //get all users and all posts, add to state as arrays
+        //get all users and all posts from db, add to state for display below
         Promise.all([
             fetch(`${api.API_ENDPOINT}/users`),
             fetch(`${api.API_ENDPOINT}/posts`),
@@ -40,11 +40,15 @@ export class Network extends Component {
     }
 
     render() {
-        //filter the posts and users from state to exclude logged in user from context
+        //filter the users from state to exclude logged in user from context, displaying only "other" teams for the logged in user to see
 
         const users = this.state.allUsers.filter(user => user.id != this.context.user.id)
 
+        //bring all posts, including user's posts, so it is a full picture of what is happening around the league
+
         const posts = this.state.allPosts
+
+        //users are .mapped on this component, posts sent to PostsList component for .mapping 
         
         return (
             <div>

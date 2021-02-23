@@ -21,7 +21,6 @@ export class PlayerCard extends Component {
         const handleClickDelete = (event) => {
         event.preventDefault();
         const player_id = player.id
-        console.log('in handleClickDelete', player_id, player.first_name)
 
         fetch(`${api.API_ENDPOINT}/players/${player_id}`, {
             method: 'DELETE',
@@ -47,6 +46,8 @@ export class PlayerCard extends Component {
             })
         }
 
+        //click on player's name to change this.state.expanded to true and display full info: name, team, position
+        //if the player is the logged in user's player (matching this.context.user.id with the user_id attached player), delete button is visible
         if (this.state.expanded === true) {
             return (
             <div className='player-card' value={player.id} >
@@ -59,6 +60,7 @@ export class PlayerCard extends Component {
         )
         }
 
+        //basic initial view of player, just name, when clicked turns this.state.expanded to true and other details are visible as above
         else {
             return (
             <div className='player-card' value={player.id}>

@@ -20,6 +20,7 @@ export class PlayersList extends Component {
     static contextType = UserContext;
 
     render() {
+        const loggedIn = this.props.loggedIn
         
         const handleAddPlayer = () => {
             this.setState({
@@ -29,6 +30,7 @@ export class PlayersList extends Component {
 
         const players = this.props.players
 
+        //get player search results from Ball Don't Lie, third-party API 
         const handleSearch = (event) => {
             event.preventDefault();
             const player = event.target['player-search'].value;
@@ -70,6 +72,10 @@ export class PlayersList extends Component {
             })
         }
 
+        //map players to PlayerCards for display
+        //if loggedIn is passed from MyTeam, ie if this is logged in user's page and players, Add Player button is visible
+        //button changes this.state.searching is true and displays form
+        //submit button of form makes this.state.searchResults true and results are visible, mapped to PlayerResults cards
         return (
             <div className='users-players'>
                 <ul
@@ -90,7 +96,7 @@ export class PlayersList extends Component {
                     
                 ))}
                 </ul>
-                <button style={{marginLeft: '0.3em'}} onClick={handleAddPlayer}>Add Player</button>
+                {loggedIn && <button style={{marginLeft: '0.3em'}} onClick={handleAddPlayer}>Add Player</button>}
                 {this.state.searching &&
                     <form onSubmit={handleSearch}>
                     <input 

@@ -28,7 +28,6 @@ export class PostCard extends Component {
     }
 
     const handleClickEdit = () => {
-        console.log('in handleClickEdit')
         this.setState({
             editing: true,
             expanded: false,
@@ -88,6 +87,9 @@ export class PostCard extends Component {
         })
     };
 
+    //full 'expanded' display of the post which includes title, date, content
+    //if the post is by the logged in user, determined by ternary questioning the id of the logged user from context against the user_id associated with post, buttons to edit or delete are visible
+    //if the post is by non-logged in user, author name is visible instead of buttons
         if (this.state.expanded === true){
             return (
             <div className='indiv-post' value={id} >
@@ -99,11 +101,13 @@ export class PostCard extends Component {
                 </p>
                 : author}
                 </div>
-                <p>{moment(date_published).format('MMM DD YYYY | hh:mma')}</p>
+                <p>{moment(date_published).format('MMM DD, YYYY | hh:mma')}</p>
                 <p>{content}</p>
             </div>
         )
         }
+
+        //for logged in user, edit button displays form to edit previous content(appearing as defaultValue)
 
         if (this.state.editing === true) {
             return (
@@ -134,12 +138,14 @@ export class PostCard extends Component {
             )
         }
 
+        //first display shown, 'contracted' view with just title and date_published
+        //author's name appears if post is by non-logged in user
         else {
             return (
             <div className='indiv-post' value={id}>
                 <h4 onClick={handleClickExpand} style={{cursor: 'pointer'}}>{title}</h4>
                 <p>{this.context.user.id !== user_id && author}</p>
-                <p>{moment(date_published).format('MMM DD YYYY | hh:mma')}</p>
+                <p>{moment(date_published).format('MMM DD, YYYY | hh:mma')}</p>
             </div>
         )
         }

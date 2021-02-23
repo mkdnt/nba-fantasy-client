@@ -14,6 +14,7 @@ export class PlayerResults extends Component {
     render() {
         const player = this.props.player
         const user_id = this.context.user.id
+        //attach logged in user's id to player for button visibility on PlayerCard after player is added
 
         const handleClickAdd = (event) => {
             event.preventDefault();
@@ -24,7 +25,6 @@ export class PlayerResults extends Component {
                 position: player.position,
                 user_id: user_id,
             }
-            console.log('adding player on PlayerResults page', newPlayer)
 
             fetch(`${api.API_ENDPOINT}/players`, {
                 method: 'POST',
@@ -45,6 +45,9 @@ export class PlayerResults extends Component {
                 console.error({error})
             })
         }
+
+        //display is same as expanded PlayerCard but with Add button instead of Delete button
+        //didn't want to reuse PlayerCard component to keep the POST fetch here separate from the DELETE fetch on PlayerCard, also didn't want to have too many ternaries and && looking for logged in user, etc.
 
         return (
             <div className='player-card' value={player.id} >

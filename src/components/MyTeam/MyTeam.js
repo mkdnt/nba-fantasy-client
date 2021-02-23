@@ -7,13 +7,10 @@ import PlayersList from '../Player/PlayersList';
 export class MyTeam extends Component {
     constructor(props) {
         super(props);
-        // this.modalOpen = this.modalOpen.bind(this);
-        // this.modalClose = this.modalClose.bind(this);
         this.state = {
             userPosts: [],
             playersToAdd: [],
             userPlayers: [],
-            show: false,
         }
     }
 
@@ -25,13 +22,13 @@ export class MyTeam extends Component {
 
     static contextType = UserContext;
 
-    //what are you mounting, etc.
-    //call functions for fetching inside of CDM
-    // fetchUsers(), fetchPosts()
-    //try and catch
+    
     componentDidMount() {
         const user_id = this.context.user.id
-        //test for an empty user
+
+        //logged in user is this.context.user
+        //fetch the posts and players for the logged in user
+
         Promise.all([
         fetch(`${api.API_ENDPOINT}/posts/byuser/${user_id}`),
         fetch(`${api.API_ENDPOINT}/players/byuser/${user_id}`),
@@ -57,22 +54,22 @@ export class MyTeam extends Component {
         const user = this.context.user
         const posts = this.state.userPosts
         const players = this.state.userPlayers
-        
-        
 
+        //send posts and players from state to their respective components for display
+        //also sending props.history for moving between pages on child components after submissions, deletion, etc.
         
-
     return (
             <div>
                 <div>
                     <h2>{user.team_name}</h2>
-                    <p>{user.username}</p>
+                    <p>Manager: {user.username}</p>
                 </div>
                     <h3>Players</h3>
                     <div className='users-players'>
                         <PlayersList 
                             players={players}
                             history={this.props.history}
+                            loggedIn={user}
                         />
                     </div>
                 
