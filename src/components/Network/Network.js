@@ -3,11 +3,13 @@ import PostsList from '../Post/PostsList';
 import UserContext from '../../contexts/UserContext';
 import UserCard from '../Users/UserCard';
 import api from '../../config';
+import ErrorHelper from '../../contexts/ErrorHelper'
 
 export class Network extends Component {
     state = {
         allUsers: [],
         allPosts: [],
+        error: null,
     }
 
     static defaultProps = {
@@ -35,12 +37,20 @@ export class Network extends Component {
             this.setState({allUsers, allPosts});
         })
         .catch((error) => {
-            console.error({error})
+            this.setState({error})
         })
     }
 
     render() {
         //filter the users from state to exclude logged in user from context, displaying only "other" teams for the logged in user to see
+
+        if (this.state.error) {
+            return (<ErrorHelper />)
+        }
+
+        else {
+
+        
 
         const users = this.state.allUsers.filter(user => user.id !== this.context.user.id)
 
@@ -80,6 +90,7 @@ export class Network extends Component {
                 </div>
             </div>
         )
+                }
     }
 }
 

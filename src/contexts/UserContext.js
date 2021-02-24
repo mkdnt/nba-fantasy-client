@@ -3,6 +3,7 @@ import AuthApiService from '../services/auth-api-service'
 import TokenService from '../services/token-service'
 import IdleService from '../services/idle-service'
 import api from '../config'
+import ErrorHelper from './ErrorHelper'
 
 const UserContext = React.createContext({
     user: {},
@@ -86,6 +87,11 @@ export class UserProvider extends Component {
     this.setState({ user })
   }
 
+  handleErrors = (error) => {
+    this.setState({error})
+    console.log('in handleErrors', error)
+  }
+
   setPosts() {
     fetch(`${api.API_ENDPOINT}/posts`, {
       method: "GET",
@@ -106,7 +112,7 @@ export class UserProvider extends Component {
         });
       })
       .catch((error) => {
-        console.error({ error });
+        this.handleErrors(error)
       });
   }
 
@@ -130,7 +136,8 @@ export class UserProvider extends Component {
         });
       })
       .catch((error) => {
-        console.error({ error });
+        this.handleErrors(error)
+
       });
   }
 
@@ -154,7 +161,8 @@ export class UserProvider extends Component {
         });
       })
       .catch((error) => {
-        console.error({ error });
+        this.handleErrors(error)
+
       });
   }
 
@@ -239,6 +247,11 @@ export class UserProvider extends Component {
   }
 
   render() {
+    if (this.state.error) {
+      return (
+        <ErrorHelper />
+      )
+    }
     const value = {
       user: this.state.user,
       users: this.state.users,
